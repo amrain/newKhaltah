@@ -2,74 +2,88 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
+import 'package:provider/provider.dart';
 
 import '../../ColorUi.dart';
+import 'ConnectUSProvider.dart';
 
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('تواصل معنا',style: TextStyle(fontSize: 18.sp),),
-        centerTitle: false,
+    return Consumer<ConnectUSProvider>(
+      builder: (context,provider,x) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text('تواصل معنا',style: TextStyle(fontSize: 18.sp),),
+            centerTitle: false,
 
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextFieldWidget(hintText: '+966591234567',
-                labelText: 'رقم الموبايل',
-              ),
-              SizedBox(height: 25.h,),
-              TextFieldWidget(hintText: 'example@mail.com',
-                labelText: 'البريد الإلكتروني',
-              ),
-              SizedBox(height: 50.h,),
-              Text('نص الرسالة'),
-              SizedBox(height: 15.h,),
-              TextFieldWidget(hintText: 'نص الرسالة ...',maxLine: 7,),
-              SizedBox(height: 20.h,),
-              InkWell(
-                onTap: (){
-                  AwesomeDialog(
-                    context: context,
-                    dialogType: DialogType.success,
-                    animType: AnimType.scale,
-                    title: 'تم الارسال',
-                    desc: 'تم ارسال الرسالة بنجاح',
-                    btnOkText: 'موافق',
-                    btnOkOnPress: () {},
-                  ).show();
-
-                },
-                child: Container(
-                  height: 48.h,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color:  ColorUi.mainColor,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x26000000),
-                        offset: Offset(0, 3),
-                        blurRadius: 15,
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Form(
+                  key: provider.ConnectUsKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFieldWidget(hintText: '+966591234567',
+                        labelText: 'رقم الموبايل',
+                        controller: provider.phone,
+                        validator: provider.phoneValidation,
                       ),
+                      SizedBox(height: 25.h,),
+                      TextFieldWidget(hintText: 'example@mail.com',
+                        labelText: 'البريد الإلكتروني',
+                        controller: provider.email,
+                        validator: provider.emailValidation,
+                      ),
+                      SizedBox(height: 50.h,),
+                      Text('نص الرسالة'),
+                      SizedBox(height: 15.h,),
+                      TextFieldWidget(hintText: 'نص الرسالة ...',maxLine: 7,
+                        controller: provider.content,
+                        validator: provider.nullValidation,
+                      ),
+                      SizedBox(height: 20.h,),
+                      InkWell(
+                        onTap: (){
+                          if(provider.ConnectUsKey!.currentState!.validate()){
+                            provider.ConnectUS();
+                          }
+                        },
+                        child: Container(
+                          height: 48.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color:  ColorUi.mainColor,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x26000000),
+                                offset: Offset(0, 3),
+                                blurRadius: 15,
+                              ),
+                            ],
+                          ),
+                          child:
+                              provider.loading?
+                                  CircularProgressIndicator(color: Colors.white,):
+                          Text('ارسال',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
+                        ),
+                      ),
+
                     ],
                   ),
-                  child: Text('ارسال',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                 ),
               ),
-
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

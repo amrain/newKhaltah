@@ -4,20 +4,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features//Widgets/TextFieldWidget.dart';
+import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 
-import 'ContractScreen.dart';
+import 'BillsScreen.dart';
 
 
-class AllContractsScreen extends StatelessWidget {
-  const AllContractsScreen({Key? key}) : super(key: key);
+
+
+class AllContractsForBillsScreen extends StatelessWidget {
+  const AllContractsForBillsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ContractsProvider>(
-      builder: (context,provider,x) {
+    return Consumer2<BillsProvider,ContractsProvider>(
+      builder: (context,provider,providerB,x) {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -34,17 +37,17 @@ class AllContractsScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 15.h,),
-                provider.loading?
+                providerB.loading?
                 Center(child: LoadingWidget())
-                    :
-                Expanded(
+                :Expanded(
                   child: ListView.builder(
                     itemCount: 5,
                       itemBuilder: (context, index) {
                     return InkWell(
                       onTap: (){
-                        provider.getContractStatus(provider.contracts![index].id!);
-                        AppRouter.NavigatorToWidget(ContractScreen());
+                        provider.getBills(providerB.contracts![index].id!);
+                        // provider.getBills(1);
+                        AppRouter.NavigatorToWidget(BillsScreen());
                       },
                       child: Container(
                         height: 50.h,
@@ -58,7 +61,7 @@ class AllContractsScreen extends StatelessWidget {
                           children: [
                             SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
                             SizedBox(width: 8.w,),
-                            Text(provider.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
+                            Text(providerB.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
                           ],
                         ),
                       ),

@@ -13,7 +13,7 @@ class ConnectUSHelper {
   Dio dio = Dio();
   String basedUrl = API.basedUrl;
 
-  ConnectUS(String phone ,String email, String content) async{
+   ConnectUS(String phone ,String email, String content) async{
     Response response = await dio.post("$basedUrl/connect_us/store",
       options: Options(
         headers: <String, dynamic>{

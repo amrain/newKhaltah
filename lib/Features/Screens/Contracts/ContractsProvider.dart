@@ -25,8 +25,11 @@ class ContractsProvider extends ChangeNotifier {
 
 
   getAllContracts ()async{
+    loading = true;
+    notifyListeners();
     AllContractsModel allContractsModel = await ContractsHelper.contractsHelper.getAllContracts();
     contracts = allContractsModel.data;
+    loading = false;
     notifyListeners();
   }
 

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/LoginScreen.dart';
+import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
 import 'package:provider/provider.dart';
 import 'AppRouter.dart';
 import 'Features/Screens/Authentication/AuthProvider.dart';
@@ -44,6 +45,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ConnectUSProvider>(
           create: (context) {
             return ConnectUSProvider();
+          },),
+        ChangeNotifierProvider<BillsProvider>(
+          create: (context) {
+            return BillsProvider();
           },),
       ],
       child: ScreenUtilInit(
