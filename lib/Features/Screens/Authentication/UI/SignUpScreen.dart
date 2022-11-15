@@ -5,13 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:khaltah/Features/Screens/AboutUs/ConditionsScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../AppRouter.dart';
 import '../AuthProvider.dart';
 import '../../../ColorUi.dart';
 import '../../../Widgets/TextFieldWidget.dart';
-import '../../ConditionsScreen.dart';
 
 
 class SignUpScreen extends StatefulWidget {
