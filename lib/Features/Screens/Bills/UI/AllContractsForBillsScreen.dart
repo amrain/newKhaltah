@@ -39,7 +39,11 @@ class AllContractsForBillsScreen extends StatelessWidget {
                 SizedBox(height: 15.h,),
                 providerB.loading?
                 Center(child: LoadingWidget())
-                :Expanded(
+                    :
+                providerB.contracts?.length == 0 ?
+                Text('لا يوجد عقود')
+                    :
+                Expanded(
                   child: ListView.builder(
                     itemCount: 5,
                       itemBuilder: (context, index) {
