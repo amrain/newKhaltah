@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
+import 'package:khaltah/Features/Screens/Notification/NotificationProvider.dart';
 import 'package:khaltah/Features/Screens/Notification/NotificationScreen.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                           },
                               icon: Icon(Icons.settings,color: Colors.white,)),
                           IconButton(onPressed: (){
+                            Provider.of<NotificationProvider>(context,listen: false).getNotification();
                             AppRouter.NavigatorToWidget(NotificationScreen());
                           },
                               icon: Icon(Icons.notifications,color: Colors.white,)),

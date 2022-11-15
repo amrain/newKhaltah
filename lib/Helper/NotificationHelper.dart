@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Models/NotificationModel.dart';
+import 'package:provider/provider.dart';
 
+import '../Features/Screens/Authentication/AuthProvider.dart';
 import 'API.dart';
 
 class NotificationHelper {
@@ -8,7 +12,13 @@ class NotificationHelper {
   Dio dio = Dio();
   String basedUrl = API.basedUrl;
 
-  getNotification (){
-
+  Future<NotificationModel> getNotification()async{
+    Response response = await dio.get("$basedUrl/notification/show",
+      options: Options(
+        headers: <String, dynamic>{
+          "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+        },),
+    );
+    return NotificationModel.fromJson(response.data);
   }
 }

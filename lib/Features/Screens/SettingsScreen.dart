@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   AppRouter.NavigatorToWidget(ProfileScreen());
                 },
@@ -36,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
                   pathImage: 'assets/images/Edit Square.svg',
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   AppRouter.NavigatorToWidget(EditPasswordScreen());
                 },
@@ -45,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
                   pathImage: 'assets/images/passwordEdit.svg',
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   Provider.of<AboutUsProvider>(context,listen: false).aboutUs();
                   AppRouter.NavigatorToWidget(ConditionsScreen());
@@ -55,7 +55,7 @@ class SettingsScreen extends StatelessWidget {
                   pathImage: 'assets/images/Shield Done.svg',
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   Provider.of<AboutUsProvider>(context,listen: false).aboutUs();
                   AppRouter.NavigatorToWidget(WhoWeScreen());
@@ -65,7 +65,7 @@ class SettingsScreen extends StatelessWidget {
                   pathImage: 'assets/images/whereUs.svg',
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   AppRouter.NavigatorToWidget(ContactUsScreen());
                 },
@@ -74,7 +74,7 @@ class SettingsScreen extends StatelessWidget {
                   pathImage: 'assets/images/Message.svg',
                 ),
               ),
-              InkWell(
+              GestureDetector(
                 onTap: (){
                   Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
                 },

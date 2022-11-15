@@ -11,6 +11,7 @@ import 'Features/Screens/ConnectUS/ConnectUSProvider.dart';
 import 'Features/Screens/Contracts/ContractsProvider.dart';
 import 'Features/Screens/FollowupProjrcts/FollowUpProvider.dart';
 import 'Features/Screens/Home/HomeProvider.dart';
+import 'Features/Screens/Notification/NotificationProvider.dart';
 import 'Features/Screens/SplachScreen.dart';
 
 
@@ -59,6 +60,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FollowUpProvider>(
           create: (context) {
             return FollowUpProvider();
+          },),
+        ChangeNotifierProvider<NotificationProvider>(
+          create: (context) {
+            return NotificationProvider();
           },),
 
       ],
