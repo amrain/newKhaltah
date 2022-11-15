@@ -98,4 +98,61 @@ class AuthHelper {
     }
   }
 
+  resetPassword(String oldPass,String newPass,String congirmPass) async{
+
+    Response response = await dio.post("$basedUrl/reset-password",
+      options: Options(
+        headers: {
+          "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+        }
+      ),
+      data: jsonEncode(
+      <String, dynamic>{
+        'old_password':oldPass,
+        'new_password':newPass,
+        'confirm_password':congirmPass,
+      },
+    ),
+    );
+
+    if(response.data["status"]){
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'تم التغيير',
+        desc: response.data["message"],
+        btnOkText: 'موافق',
+        btnOkOnPress: () {
+          AppRouter.popFromWidget();
+          Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).resetNewPassController.clear();
+          Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).resetOldPassController.clear();
+          Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).resetConfirmPassController.clear();
+
+        },
+      ).show();
+
+    }else{
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.error,
+        animType: AnimType.scale,
+        title: "خطأ",
+        desc: response.data["message"],
+        btnOkText: 'موافق',
+        btnOkOnPress: () {},
+      ).show();
+
+
+
+    }
+
+
+
+
+  }
+
+
+
+
 }

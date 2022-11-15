@@ -25,6 +25,13 @@ class AuthProvider extends ChangeNotifier{
   TextEditingController forgetPasswordController = TextEditingController();
   GlobalKey<FormState>? forgetPasswordKey = GlobalKey();
 
+  TextEditingController resetOldPassController = TextEditingController();
+  TextEditingController resetNewPassController = TextEditingController();
+  TextEditingController resetConfirmPassController = TextEditingController();
+  GlobalKey<FormState>? resetPasswordKey = GlobalKey();
+
+
+
 
 
   bool loading = false;
@@ -36,6 +43,17 @@ class AuthProvider extends ChangeNotifier{
     if(v.length < 6) {
       return 'كلمة المرور يجب ان تكون اكثر من 6 أحرف';
     }}
+
+  passCongirm(String v){
+    if(v.length < 6) {
+      return 'كلمة المرور يجب ان تكون اكثر من 6 أحرف';
+    }
+    if(v != resetNewPassController.text) {
+      return 'كلمة المرور غير متطابقة';
+    }
+
+
+  }
   emailValidation(String v){
     if(v.isEmpty) {
       return 'هذا الحقل مطلوب';
@@ -104,6 +122,18 @@ class AuthProvider extends ChangeNotifier{
     await AuthHelper.authHelper.forgetPassword(forgetPasswordController.text);
     loading = false;
     notifyListeners();
+
+  }
+
+  resetPassword() async{
+    loading = true;
+    notifyListeners();
+    AuthHelper.authHelper.resetPassword(resetOldPassController.text, resetNewPassController.text, resetConfirmPassController.text);
+    loading = false;
+    notifyListeners();
+
+
+
 
   }
 
