@@ -4,15 +4,16 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../ColorUi.dart';
-import '../../../Widgets/TextFieldWidget.dart';
-import '../HomeProvider.dart';
+import '../../../../ColorUi.dart';
+import '../../../../Widgets/RadioButtonWidget.dart';
 
 
-class Document extends StatelessWidget {
-  const Document({Key? key}) : super(key: key);
+
+class Accessory extends StatelessWidget {
+  const Accessory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class Document extends StatelessWidget {
                     header: const Padding(
                         padding: EdgeInsets.all(10),
                         child: Text(
-                          "وثيقة العقدالاساسية",
+                          "ملحق الشروط الخاصة",
                         )),
                     expanded: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,39 +44,27 @@ class Document extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: 10),
                             child:
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children:  [
-                                TextFieldWidget(hintText: 'رقم بطاقة الأحوال'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'تاريخ بطاقة الأحوال'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'مصدر بطاقة الأحوال'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'صورة بطاقة الأحوال'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'رقم الصك'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'تاريخ الصك'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'صورة الصك'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'رقم ترخيص البناء'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'تاريخ الترخيص'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'صورة الترخيص'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'اسم المكتب الهندسي'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'اسم المهندس المشرف'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'رقم جوال او ايميل المهندس المشرف'),
-                                SizedBox(height: 8.h,),
-                                TextFieldWidget(hintText: 'صور المخطط الانشائي المعماري وتقرير التربة'),
-                                SizedBox(height: 10.h,),
+                                Text('تكون تكاليف تسوية الأرض والحفر للقواعد والخزان والبيارة على '),
+                                RadioButtonWidget(),
+                                Divider(),
+                                Text('تكون تكاليف الدفان على'),
+                                RadioButtonWidget(),
+                                Divider(),
+                                Text('تكاليف المياه للموقع على'),
+                                RadioButtonWidget(),
+                                Divider(),
+                                Text('إحضار عامل للرش بصفة دائمة في الموقع لحين إنهاء عمل المقاول'),
+                                RadioButtonWidget(),
+                                Divider(),
+                                Text(' تطليع المونة أو الاسمنت أو الرمل أو البلوك أو خلافه إلى مكان العمل'),
+                                RadioButtonWidget(),
                                 InkWell(
                                   onTap: (){
-                                    Provider.of<HomeProvider>(context,listen: false).OpenedAccessory();
-                                    log(Provider.of<HomeProvider>(context,listen: false).openAccessory.toString());
+                                    Provider.of<HomeProvider>(context,listen: false).OpenedDetails();
+                                    log(Provider.of<HomeProvider>(context,listen: false).openDetails.toString());
+
                                   },
                                   child: Container(
                                     height: 48.h,
@@ -83,7 +72,6 @@ class Document extends StatelessWidget {
                                     decoration: BoxDecoration(
                                       color:  ColorUi.mainColor,
                                       borderRadius: BorderRadius.circular(10),
-
                                     ),
                                     child: Text('حفظ ومتابعة',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                                   ),

@@ -4,13 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
-import 'package:khaltah/Features/Screens/NotificationScreen.dart';
+import 'package:khaltah/Features/Screens/Notification/NotificationScreen.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Helper/API.dart';
 import '../SettingsScreen.dart';
-import 'Section/SectionScreen.dart';
+import 'Section/UI/SectionScreen.dart';
 
 
 class HomeScreen extends StatelessWidget {

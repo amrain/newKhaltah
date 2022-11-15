@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 import 'Accessory.dart';
 import 'Details.dart';
-import 'Document.dart';
+import '../Document.dart';
 
 class SectionScreen extends StatefulWidget {
    SectionScreen({Key? key}) : super(key: key);

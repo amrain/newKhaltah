@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../ColorUi.dart';
+import '../../../../ColorUi.dart';
 
 
 class Details extends StatelessWidget {

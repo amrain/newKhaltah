@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'Bills/UI/AllContractsForBillsScreen.dart';
 import 'ConnectUS/ContactUsScreen.dart';
 import 'Contracts/UI/AllContractsScreen.dart';
-import 'FollowupProjrcts/FollowupProjectsScreen.dart';
+import 'FollowupProjrcts/UI/AllContractsForFollowUpScreen.dart';
 import 'Home/HomeScreen.dart';
 
 
@@ -22,7 +22,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   final pages = [
     HomeScreen(),
     AllContractsScreen(),
-    FollowupProjectsScreen(),
+    AllContractsForFollowUpScreen(),
     AllContractsForBillsScreen(),
     ContactUsScreen(),
 
