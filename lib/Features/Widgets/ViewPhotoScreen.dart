@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
-class OneBillScreen extends StatelessWidget {
+class ViewPhotoScreen extends StatelessWidget {
   // const OneBillScreen({Key? key}) : super(key: key);
   String imagePath;
-  OneBillScreen(this.imagePath);
+  ViewPhotoScreen(this.imagePath);
   @override
   Widget build(BuildContext context) {
-    return PhotoView(
+    return Scaffold(
+      body: PhotoView(
+        imageProvider: NetworkImage(imagePath),
 
-      imageProvider: NetworkImage(imagePath),
+      ),
     );
+
+
   }
 }

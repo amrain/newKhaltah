@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +8,7 @@ import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features//Widgets/TextFieldWidget.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
+import 'package:khaltah/Features/Screens/FollowupProjrcts/FollowUpProvider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +19,7 @@ class AllContractsForFollowUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<BillsProvider,ContractsProvider>(
+    return Consumer2<FollowUpProvider,ContractsProvider>(
       builder: (context,provider,providerB,x) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -46,8 +49,9 @@ class AllContractsForFollowUpScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                     return InkWell(
                       onTap: (){
-                        provider.getBills(providerB.contracts![index].id!);
-                        // provider.getBills(1);
+                        // provider.getFollowUp(10);
+                        log(providerB.contracts![index].id!.toString());
+                        provider.getFollowUp(providerB.contracts![index].id!);
                         AppRouter.NavigatorToWidget(FollowupProjectsScreen());
                       },
                       child: Container(

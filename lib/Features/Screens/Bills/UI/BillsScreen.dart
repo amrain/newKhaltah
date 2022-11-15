@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
-import 'package:khaltah/Features/Screens/Bills/UI/OneBillScreen.dart';
+import 'package:khaltah/Features/Widgets/ViewPhotoScreen.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:khaltah/Helper/API.dart';
@@ -94,7 +94,7 @@ class BillsScreen extends StatelessWidget {
                             child: Center(
                               child: GestureDetector(
                                 onTap: (){
-                                  AppRouter.NavigatorToWidget(OneBillScreen("${API.imageUrl}${provider.bills[index-1].image}"));
+                                  AppRouter.NavigatorToWidget(ViewPhotoScreen("${API.imageUrl}${provider.bills[index-1].image}"));
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

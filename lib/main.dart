@@ -9,6 +9,7 @@ import 'AppRouter.dart';
 import 'Features/Screens/Authentication/AuthProvider.dart';
 import 'Features/Screens/ConnectUS/ConnectUSProvider.dart';
 import 'Features/Screens/Contracts/ContractsProvider.dart';
+import 'Features/Screens/FollowupProjrcts/FollowUpProvider.dart';
 import 'Features/Screens/Home/HomeProvider.dart';
 import 'Features/Screens/SplachScreen.dart';
 
@@ -50,10 +51,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<BillsProvider>(
           create: (context) {
             return BillsProvider();
-          },),ChangeNotifierProvider<AboutUsProvider>(
+          },),
+        ChangeNotifierProvider<AboutUsProvider>(
           create: (context) {
             return AboutUsProvider();
           },),
+        ChangeNotifierProvider<FollowUpProvider>(
+          create: (context) {
+            return FollowUpProvider();
+          },),
+
       ],
       child: ScreenUtilInit(
           designSize: const Size(375, 812),
