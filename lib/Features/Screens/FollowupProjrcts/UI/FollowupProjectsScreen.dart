@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../ColorUi.dart';
-import '../../Widgets/TextFieldWidget.dart';
+import '../../../ColorUi.dart';
+import '../../../Widgets/TextFieldWidget.dart';
 
 class FollowupProjectsScreen extends StatelessWidget {
   const FollowupProjectsScreen({Key? key}) : super(key: key);
