@@ -37,6 +37,9 @@ class AllContractsScreen extends StatelessWidget {
                 provider.loading?
                 Center(child: LoadingWidget())
                     :
+                provider.contracts?.length == 0 ?
+                  Text('لا يوجد عقود')
+                    :
                 Expanded(
                   child: ListView.builder(
                     itemCount: 5,

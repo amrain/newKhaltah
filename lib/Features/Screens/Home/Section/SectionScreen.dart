@@ -168,7 +168,6 @@ class _SectionScreenState extends State<SectionScreen> {
                             ],
 
                           ),
-
                           Document(),
                           provider.openAccessory?
                           Accessory():
@@ -207,7 +206,6 @@ class _SectionScreenState extends State<SectionScreen> {
                                   ),
                                 ),
                           ),
-
                           provider.openDetails?
                           Details():
                           InkWell(
