@@ -231,7 +231,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-                  (provider.loading)?Center(child: LoadingWidget()):SizedBox()
+                  (provider.loading)?SizedBox(height:1.sh,child: Center(child: LoadingWidget())):SizedBox()
                 ],
               ),
             ),
