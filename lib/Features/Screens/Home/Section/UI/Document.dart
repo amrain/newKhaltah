@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/ColorUi.dart';
-import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:provider/provider.dart';
+
+import '../../HomeProvider.dart';
 
 
 

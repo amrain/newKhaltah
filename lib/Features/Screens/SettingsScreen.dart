@@ -4,9 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Screens/AboutUs/ConditionsScreen.dart';
 import 'package:khaltah/Features/Screens/AboutUs/WhoWeScreen.dart';
-import 'package:khaltah/Features/Screens/AboutUs/who_we_provider.dart';
+import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/EditPasswordSecreen.dart';
-import 'package:khaltah/Helper/about_as_helper.dart';
+import 'package:khaltah/Helper/AboutAsHelper.dart';
 import 'package:provider/provider.dart';
 
 import 'ConnectUS/ContactUsScreen.dart';
@@ -48,7 +48,6 @@ class SettingsScreen extends StatelessWidget {
               InkWell(
                 onTap: (){
                   Provider.of<AboutUsProvider>(context,listen: false).aboutUs();
-
                   AppRouter.NavigatorToWidget(ConditionsScreen());
                 },
                 child: EditWidget(
@@ -59,9 +58,7 @@ class SettingsScreen extends StatelessWidget {
               InkWell(
                 onTap: (){
                   Provider.of<AboutUsProvider>(context,listen: false).aboutUs();
-
                   AppRouter.NavigatorToWidget(WhoWeScreen());
-
                 },
                 child: EditWidget(
                   title: 'من نحن',

@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               TextFieldWidget(
                                 hintText: 'البريد الإلكتروني',
                                 suffix: Icon(Icons.email_outlined,color: Colors.grey,),
-                                controller: provider.emailController,
+                                controller: provider.emailLoginController,
                                 validator: provider.emailValidation,
                               ),
                               SizedBox(height: 15.h,),
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: Colors.grey,)
                                 ),
                                 isPassword: Password,
-                                controller: provider.passwordController,
+                                controller: provider.passwordLoginController,
                                 validator: provider.passwordValidation,
                               ),
                               SizedBox(height: 15.h,),

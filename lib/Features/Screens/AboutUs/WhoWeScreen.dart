@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:khaltah/Features/Screens/AboutUs/who_we_provider.dart';
+import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 

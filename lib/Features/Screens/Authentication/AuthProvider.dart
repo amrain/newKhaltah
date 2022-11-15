@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier{
   login()async{
     loading = true;
     notifyListeners();
-    User = await AuthHelper.authHelper.login(emailController.text, passwordController.text);
+    User = await AuthHelper.authHelper.login(emailLoginController.text, passwordLoginController.text);
     loading = false;
     notifyListeners();
 

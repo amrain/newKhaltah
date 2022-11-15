@@ -40,10 +40,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             foregroundColor: Colors.black,
           ),
           body: SingleChildScrollView(
-            child: SafeArea(
-              child: Stack(
-                children: [
-                  Column(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SafeArea(
+                  child: Column(
                     children: [
                       SizedBox(height: 20.h,),
                       SvgPicture.asset('assets/images/logo.svg',height: 100.h,),
@@ -231,9 +232,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-                  (provider.loading)?Center(child: LoadingWidget()):SizedBox()
-                ],
-              ),
+                ),
+                (provider.loading)?
+                Center(child: LoadingWidget()):
+                SizedBox()
+              ],
             ),
           ),
         );

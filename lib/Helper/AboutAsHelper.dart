@@ -21,13 +21,8 @@ class AboutAsHelper {
         "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
       }
     ));
-
     AboutUsModel aboutUsModel = AboutUsModel.fromJson(response.data);
     return aboutUsModel.data!;
-
-
-
-
   }
 
 

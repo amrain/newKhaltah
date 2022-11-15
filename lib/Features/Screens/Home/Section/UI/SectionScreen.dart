@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:khaltah/Features/Screens/Home/Section/UI/Details.dart';
 import 'package:khaltah/Features/Screens/Home/Section/UI/Document.dart';
 import 'package:khaltah/Models/AllSectionsModel.dart';
 import 'package:khaltah/Features/ColorUi.dart';
@@ -14,7 +15,6 @@ import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'Accessory.dart';
-import 'Details.dart';
 
 class SectionScreen extends StatefulWidget {
    SectionScreen({Key? key}) : super(key: key);
