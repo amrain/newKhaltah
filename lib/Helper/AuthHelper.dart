@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
+import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
 import 'package:khaltah/Models/AuthModel.dart';
+import 'package:provider/provider.dart';
 
+import '../AppRouter.dart';
 import 'API.dart';
 
 class AuthHelper {
@@ -54,8 +58,44 @@ class AuthHelper {
   }
 
 
-  forgetPassword(){
+  forgetPassword(String email)async{
+    Response response = await dio.post("$basedUrl/forgot-password",
+      data: jsonEncode(
+        <String, dynamic>{
+          'email':email,
+        },
+      ),);
+    int errors = response.data["errors"] ;
+    if(errors == 1){
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.error,
+        animType: AnimType.scale,
+        title: 'خطأ',
+        desc: response.data["data"],
+        btnOkText: 'موافق',
+        btnOkOnPress: () {
 
+        },
+      ).show();
+
+    }else {
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'تم الارسال',
+        desc: response.data["data"],
+        btnOkText: 'موافق',
+        btnOkOnPress: () {
+          AppRouter.popFromWidget();
+          Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).forgetPasswordController.clear();
+
+        },
+      ).show();
+
+
+    }
   }
 
 }

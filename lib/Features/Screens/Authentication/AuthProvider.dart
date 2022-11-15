@@ -22,6 +22,11 @@ class AuthProvider extends ChangeNotifier{
   TextEditingController password_confirmationController = TextEditingController();
   GlobalKey<FormState>? registerKey = GlobalKey();
 
+  TextEditingController forgetPasswordController = TextEditingController();
+  GlobalKey<FormState>? forgetPasswordKey = GlobalKey();
+
+
+
   bool loading = false;
   nullValidation(String v){
     if(v.isEmpty) {
@@ -90,6 +95,15 @@ class AuthProvider extends ChangeNotifier{
         btnOkOnPress: () {},
       ).show();
     }
+
+  }
+
+  forgetPassword()async {
+    loading = true;
+    notifyListeners();
+    await AuthHelper.authHelper.forgetPassword(forgetPasswordController.text);
+    loading = false;
+    notifyListeners();
 
   }
 
