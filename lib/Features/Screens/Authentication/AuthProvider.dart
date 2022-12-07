@@ -5,7 +5,7 @@ import 'package:khaltah/Helper/AuthHelper.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../../../Models/AuthModel.dart';
-import '../NavBarWidget.dart';
+import '../../Widgets/NavBarWidget.dart';
 
 class AuthProvider extends ChangeNotifier{
   late AuthModel User;
@@ -30,11 +30,8 @@ class AuthProvider extends ChangeNotifier{
   TextEditingController resetConfirmPassController = TextEditingController();
   GlobalKey<FormState>? resetPasswordKey = GlobalKey();
 
-
-
-
-
   bool loading = false;
+
   nullValidation(String v){
     if(v.isEmpty) {
       return 'هذا الحقل مطلوب';
@@ -43,8 +40,7 @@ class AuthProvider extends ChangeNotifier{
     if(v.length < 6) {
       return 'كلمة المرور يجب ان تكون اكثر من 6 أحرف';
     }}
-
-  passCongirm(String v){
+  passConfirm(String v){
     if(v.length < 6) {
       return 'كلمة المرور يجب ان تكون اكثر من 6 أحرف';
     }
@@ -131,10 +127,6 @@ class AuthProvider extends ChangeNotifier{
     AuthHelper.authHelper.resetPassword(resetOldPassController.text, resetNewPassController.text, resetConfirmPassController.text);
     loading = false;
     notifyListeners();
-
-
-
-
   }
 
 

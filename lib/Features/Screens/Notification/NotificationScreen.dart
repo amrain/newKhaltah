@@ -6,9 +6,14 @@ import 'package:khaltah/Features/Screens/Notification/NotificationProvider.dart'
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
 
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<NotificationProvider>(
@@ -31,11 +36,11 @@ class NotificationScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(2.0),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: provider.notifications[index].status == "1"? Colors.red.shade50:Colors.blue.shade50,
+                            backgroundColor: provider.notifications[index].messageType == "1"? Colors.blue.shade50:Colors.red.shade50,
                             radius: 25.r,
                             child: Icon(Icons.notifications_on_outlined,
-                              color: provider.notifications[index].status == "1"?
-                            Colors.red:Colors.blue),
+                              color: provider.notifications[index].messageType == "1"?
+                            Colors.blue:Colors.red),
                           ),
                           title: Text(provider.notifications[index].message!,
                             style: TextStyle(height: 1.5),),

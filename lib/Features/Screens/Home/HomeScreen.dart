@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
+import 'package:khaltah/Features/Screens/Home/Section/SectionProvider.dart';
 import 'package:khaltah/Features/Screens/Notification/NotificationProvider.dart';
 import 'package:khaltah/Features/Screens/Notification/NotificationScreen.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
@@ -78,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                                       padding: const EdgeInsets.all(6.0),
                                       child: GestureDetector(
                                         onTap: (){
-                                          provider.getSections(provider.ProjectsTasheed[index].id.toString());
+                                          Provider.of<SectionProvider>(context,listen: false).getSections(provider.ProjectsTasheed[index].id.toString());
                                           AppRouter.NavigatorToWidget(SectionScreen());
                                         },
                                         child: Column(
@@ -112,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                                       padding: const EdgeInsets.all(6.0),
                                       child: GestureDetector(
                                         onTap: (){
-                                          provider.getSections(provider.ProjectsTashteb[index].id.toString());
+                                          Provider.of<SectionProvider>(context,listen: false).getSections(provider.ProjectsTashteb[index].id.toString());
                                           AppRouter.NavigatorToWidget(SectionScreen());
                                         },
                                         child: Column(

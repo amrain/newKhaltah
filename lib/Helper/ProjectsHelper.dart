@@ -19,14 +19,6 @@ class HomeHelper {
     return AllProjectsModal.fromJson(response.data);
   }
 
-  Future<AllSectionsModel> getSection(String id)async{
-    Response response = await dio.get("$basedUrl/sections/$id",
-      options: Options(
-        headers: <String, String>{
-        },),
-    );
-    return AllSectionsModel.fromJson(response.data);
 
-  }
 
 }

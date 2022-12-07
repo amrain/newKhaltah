@@ -3,17 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/ColorUi.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   String? labelText;
   TextEditingController? controller;
   Widget? suffix;
   final Function? validator;
+
   int? maxLine;
   TextInputType? textInputType;
   bool? isPassword;
   bool? enabled;
   TextFieldWidget({
-    required this.hintText,
+    this.hintText,
     this.controller,
     this.suffix,
     this.validator,
@@ -21,7 +22,8 @@ class TextFieldWidget extends StatelessWidget {
     this.textInputType,
     this.isPassword,
     this.labelText,
-    this.enabled
+    this.enabled,
+
 
   });
   @override
@@ -31,6 +33,8 @@ class TextFieldWidget extends StatelessWidget {
         obscureText: isPassword??false,
         keyboardType: textInputType,
         enabled: enabled,
+
+
 
         maxLines: maxLine??1,
         validator: (x)=>validator!(x),
@@ -57,6 +61,7 @@ class TextFieldWidget extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 15.sp,color: Colors.grey),
           labelText: labelText,
+          labelStyle: TextStyle(fontSize: 20.sp)
 
         ),
 

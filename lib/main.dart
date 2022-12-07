@@ -11,6 +11,7 @@ import 'Features/Screens/ConnectUS/ConnectUSProvider.dart';
 import 'Features/Screens/Contracts/ContractsProvider.dart';
 import 'Features/Screens/FollowupProjrcts/FollowUpProvider.dart';
 import 'Features/Screens/Home/HomeProvider.dart';
+import 'Features/Screens/Home/Section/SectionProvider.dart';
 import 'Features/Screens/Notification/NotificationProvider.dart';
 import 'Features/Screens/SplachScreen.dart';
 
@@ -65,6 +66,10 @@ class MyApp extends StatelessWidget {
           create: (context) {
             return NotificationProvider();
           },),
+        ChangeNotifierProvider<SectionProvider>(
+          create: (context) {
+            return SectionProvider();
+          },),
 
       ],
       child: ScreenUtilInit(
@@ -82,11 +87,12 @@ class MyApp extends StatelessWidget {
               fontFamily: 'arabic',
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
+
                 titleTextStyle: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontFamily: 'arabic',
                   color: Colors.black,),
-                centerTitle: true,
+                centerTitle: false,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.black,

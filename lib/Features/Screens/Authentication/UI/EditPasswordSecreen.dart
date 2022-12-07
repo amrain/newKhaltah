@@ -107,7 +107,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                               TextFieldWidget(
                                 hintText: 'تأكيد كلمة المرور',
                                 controller: provider.resetConfirmPassController,
-                                validator: provider.passCongirm,
+                                validator: provider.passConfirm,
                                 suffix: InkWell(
                                     onTap: (){
                                       setState(() {

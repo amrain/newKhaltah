@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:khaltah/Helper/NotificationHelper.dart';
@@ -14,6 +16,13 @@ class NotificationProvider extends ChangeNotifier {
     notifications = notificationModel.data!;
     loading = false;
     notifyListeners();
+    updateNotification();
+  }
+
+  updateNotification ()async{
+    await NotificationHelper.notificationHelper.updateNotification();
+    log('Update Notification');
+    // notifyListeners();
   }
 
 }

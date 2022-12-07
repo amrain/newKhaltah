@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'Bills/UI/AllContractsForBillsScreen.dart';
-import 'ConnectUS/ContactUsScreen.dart';
-import 'Contracts/UI/AllContractsScreen.dart';
-import 'FollowupProjrcts/UI/AllContractsForFollowUpScreen.dart';
-import 'Home/HomeScreen.dart';
+import 'package:khaltah/Features/Supervisor/Home/SHomeScreen.dart';
+import '../Screens/Bills/UI/AllContractsForBillsScreen.dart';
+import '../Screens/ConnectUS/ContactUsScreen.dart';
+import '../Screens/Contracts/UI/AllContractsScreen.dart';
+import '../Screens/FollowupProjrcts/UI/AllContractsForFollowUpScreen.dart';
+import '../Screens/Home/HomeScreen.dart';
+import '../Supervisor/Bond/SBondScreen.dart';
+import '../Supervisor/ScheduleOfWork/SAllContractsForScheduleScreen.dart';
+import '../Supervisor/WorkAndBill/SAllContractsForWorkAndBillScreen.dart';
 
 
 class NavBarWidget extends StatefulWidget {
@@ -18,13 +22,18 @@ class NavBarWidget extends StatefulWidget {
 
 class _NavBarWidgetState extends State<NavBarWidget> {
   int pageIndex = 0;
+  int? type;
 
   final pages = [
-    HomeScreen(),
+    SHomeScreen(),
+    // HomeScreen(),
     AllContractsScreen(),
-    AllContractsForFollowUpScreen(),
-    AllContractsForBillsScreen(),
-    ContactUsScreen(),
+    SAllContractsForWorkAndBillScreen(),
+    // AllContractsForFollowUpScreen(),
+    SBondScreen(),
+    // AllContractsForBillsScreen(),
+    SAllContractsForScheduleScreen(),
+    // ContactUsScreen(),
 
 
 

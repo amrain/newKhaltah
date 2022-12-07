@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:khaltah/Features/Screens/Home/Section/SectionProvider.dart';
 import 'package:khaltah/Features/Screens/Home/Section/UI/Details.dart';
 import 'package:khaltah/Features/Screens/Home/Section/UI/Document.dart';
 import 'package:khaltah/Models/AllSectionsModel.dart';
@@ -14,7 +15,7 @@ import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:provider/provider.dart';
 
-import 'Accessory.dart';
+import 'SpecialConditions.dart';
 
 class SectionScreen extends StatefulWidget {
    SectionScreen({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _SectionScreenState extends State<SectionScreen> {
         centerTitle: false,
       ),
       body: SafeArea(
-        child: Consumer<HomeProvider>(
+        child: Consumer<SectionProvider>(
           builder: (context,provider,x) {
             return Column(
               children: [
@@ -73,6 +74,7 @@ class _SectionScreenState extends State<SectionScreen> {
                                 selected = index;
                                 open = true;
                                 thisSection = provider.sections[index];
+                                provider.getSpecialConditions(provider.sections[index].id.toString());
                                 log(thisSection.id.toString());
                               });
                             },
@@ -85,7 +87,9 @@ class _SectionScreenState extends State<SectionScreen> {
                                 )
                               ),
                               child: Text(provider.sections[index].name??"",
-                                style: TextStyle(color:  selected==index ? Colors.white : Colors.black   ,),),
+                                style: TextStyle(color:  selected==index ? Colors.white : Colors.black,
+                                  fontWeight:  selected==index ? FontWeight.bold : FontWeight.normal,
+                                ),),
                             ),
                           );
                         }),
@@ -140,6 +144,7 @@ class _SectionScreenState extends State<SectionScreen> {
                                   onChanged: (Material? value) {
                                     setState(() {
                                       _material = value;
+                                      provider.construction_type = '1';
                                     });
                                   },
                                 ),
@@ -157,6 +162,7 @@ class _SectionScreenState extends State<SectionScreen> {
                                   onChanged: (Material? value) {
                                     setState(() {
                                       _material = value;
+                                      provider.construction_type = '0';
                                     });
                                   },
                                 ),
@@ -168,9 +174,9 @@ class _SectionScreenState extends State<SectionScreen> {
                             ],
 
                           ),
-                          Document(),
+                          Document(section: thisSection,),
                           provider.openAccessory?
-                          Accessory():
+                          SpecialConditions():
                           InkWell(
                             onTap: (){
                               AwesomeDialog(

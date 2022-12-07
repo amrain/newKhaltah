@@ -10,22 +10,12 @@ class HomeProvider extends ChangeNotifier{
     getAllProjects();
   }
 
-  bool openAccessory = false;
-  bool openDetails = false;
 
-  OpenedAccessory(){
-    openAccessory = true;
-    notifyListeners();
-  }
-  OpenedDetails(){
-    openDetails = true;
-    notifyListeners();
-  }
 
    List<Project> ProjectsTasheed = [];
    List<Project> ProjectsTashteb = [];
    List<Project> AllProjects = [];
-   List<Section> sections = [];
+
 
   getAllProjects()async{
     AllProjectsModal allProjects = await HomeHelper.homeHelper.getAllProjects();
@@ -39,9 +29,5 @@ class HomeProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  getSections(String id)async {
-    AllSectionsModel allSectionsModel = await HomeHelper.homeHelper.getSection(id);
-    sections = allSectionsModel.data!;
-    notifyListeners();
-  }
+
 }
