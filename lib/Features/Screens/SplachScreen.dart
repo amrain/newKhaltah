@@ -1,14 +1,10 @@
 
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/LoginScreen.dart';
-
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../AppRouter.dart';
-import '../ColorUi.dart';
 
 
 class SplashScreen extends StatelessWidget {
@@ -21,8 +17,6 @@ class SplashScreen extends StatelessWidget {
     await Future.delayed(Duration(seconds: 3));
     AppRouter.NavigatorToWidgetWithReplacement(LoginScreen());
 
-    // AppRouter.NavigatorToWidgetWithReplacement(WelcomeScreen());
-
   }
 
   @override
@@ -30,8 +24,17 @@ class SplashScreen extends StatelessWidget {
     initFun();
 
     return Scaffold(
-      body: Center(
-        child: SvgPicture.asset('assets/images/logo.svg',height: 120.h,),
+      body: SizedBox(
+        width: 1.sw,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset('assets/images/LogoWithoutName.svg',height: 200.h,),
+            SizedBox(height: 15.h,),
+            LoadingAnimationWidget.stretchedDots(color: Color(0xff808122), size: 70),
+          ],
+        ),
       ),
     );
 }}

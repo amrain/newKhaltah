@@ -49,6 +49,7 @@ dependencies:
   file_picker: ^5.2.2
   group_button: ^5.2.2
   loading_animation_widget: ^1.2.0+3
+  flutter_animator:
 dev_dependencies:
   flutter_test:
     sdk: flutter

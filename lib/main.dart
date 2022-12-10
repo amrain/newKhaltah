@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/LoginScreen.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
+import 'package:khaltah/Features/Supervisor/Bond/SBondProvider.dart';
 import 'package:provider/provider.dart';
 import 'AppRouter.dart';
 import 'Features/Screens/Authentication/AuthProvider.dart';
@@ -14,6 +15,7 @@ import 'Features/Screens/Home/HomeProvider.dart';
 import 'Features/Screens/Home/Section/SectionProvider.dart';
 import 'Features/Screens/Notification/NotificationProvider.dart';
 import 'Features/Screens/SplachScreen.dart';
+import 'Features/Supervisor/Home/SHomeProvider.dart';
 
 
 void main() async{
@@ -69,6 +71,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SectionProvider>(
           create: (context) {
             return SectionProvider();
+          },),
+        ChangeNotifierProvider<SHomeProvider>(
+          create: (context) {
+            return SHomeProvider();
+          },),
+        ChangeNotifierProvider<SBondProvider>(
+          create: (context) {
+            return SBondProvider();
           },),
 
       ],

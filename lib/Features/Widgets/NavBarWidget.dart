@@ -1,8 +1,16 @@
+import 'dart:developer';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
+import 'package:khaltah/Features/Supervisor/Contracts/UI/SAllContractsScreen.dart';
 import 'package:khaltah/Features/Supervisor/Home/SHomeScreen.dart';
+import 'package:provider/provider.dart';
 import '../Screens/Bills/UI/AllContractsForBillsScreen.dart';
 import '../Screens/ConnectUS/ContactUsScreen.dart';
 import '../Screens/Contracts/UI/AllContractsScreen.dart';
@@ -24,112 +32,126 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   int pageIndex = 0;
   int? type;
 
-  final pages = [
-    SHomeScreen(),
-    // HomeScreen(),
+  final pagesUser = [
+
+    HomeScreen(),
     AllContractsScreen(),
+    AllContractsForFollowUpScreen(),
+    AllContractsForBillsScreen(),
+    ContactUsScreen(),
+  ];
+
+  final pagesSupervisor = [
+    SHomeScreen(),
+    SAllContractsScreen(),
     SAllContractsForWorkAndBillScreen(),
-    // AllContractsForFollowUpScreen(),
     SBondScreen(),
-    // AllContractsForBillsScreen(),
     SAllContractsForScheduleScreen(),
-    // ContactUsScreen(),
-
-
-
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: const Color(0xffC4DFCB),
-      // appBar: AppBar(
-      //   leading: Icon(
-      //     Icons.menu,
-      //     color: Theme.of(context).primaryColor,
-      //   ),
-      //   title: Text(
-      //     "Geeks For Geeks",
-      //     style: TextStyle(
-      //       color: Theme.of(context).primaryColor,
-      //       fontSize: 25,
-      //       fontWeight: FontWeight.w600,
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.white,
-      // ),
-      body: pages[pageIndex],
-      bottomNavigationBar: Container(
-        height: 80.h,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTap: (){
-                setState(() {
-                  pageIndex = 0;
-                });
-              },
-              child: pageIndex == 0 ?
-                  NavBarOnButton(
-                    pathImage: 'assets/images/Home1.svg',
-                    title: 'الرئيسة',
-                  )
-                  : NavBarOffButton(title: 'الرئيسة', pathImage: 'assets/images/Home2.svg'),),
-            GestureDetector(
-              onTap: (){
-                setState(() {
-                  pageIndex = 1;
-                });
-              },
-              child: pageIndex == 1 ?
-              NavBarOnButton(
-                pathImage: 'assets/images/Group979.svg',
-                title: 'العقود',
-              )
-                  : NavBarOffButton(title: 'العقود', pathImage: 'assets/images/عقود2.svg'),),
-            GestureDetector(
-              onTap: (){
-                setState(() {
-                  pageIndex = 2;
-                });
-              },
-              child: pageIndex == 2 ?
-              NavBarOnButton(
-                pathImage: 'assets/images/متابعة الاعمال1.svg',
-                title: 'متابعة الاعمال',
-              )
-                  : NavBarOffButton(title: 'متابعة الاعمال', pathImage: 'assets/images/متابعة الاعمال2.svg'),),
-            GestureDetector(
-              onTap: (){
-                setState(() {
-                  pageIndex = 3;
-                });
-              },
-              child: pageIndex == 3 ?
-              NavBarOnButton(
-                pathImage: 'assets/images/فواتير1.svg',
-                title: 'الفواتير',
-              )
-                  : NavBarOffButton(title: 'الفواتير', pathImage: 'assets/images/فواتير2.svg'),),
-            GestureDetector(
-              onTap: (){
-                setState(() {
-                  pageIndex = 4;
-                });
-              },
-              child: pageIndex == 4 ?
-              NavBarOnButton(
-                pathImage: 'assets/images/تواصل معنا1.svg',
-                title: 'تواصل معنا',
-              )
-                  : NavBarOffButton(title: 'تواصل معنا', pathImage: 'assets/images/تواصل معنا2.svg'),),
+    return Consumer<AuthProvider>(
+      builder: (context,provider,x) {
+        return WillPopScope(
+          onWillPop: () {
+            if(Navigator.canPop(context)) {
 
-          ],
-        ),
-      ),
+            return Future.value(false);
+          }else
+            {
+              AwesomeDialog(
+                context: AppRouter.navKey.currentContext!,
+                dialogType: DialogType.warning,
+                animType: AnimType.scale,
+                title: 'الخروج من التطبيق',
+                desc: 'هل انت متأكد من الخروج من التطبيق ؟',
+                btnOkText: 'لا',
+                btnOkOnPress: () {},
+                btnCancelOnPress:(){
+                  SystemNavigator.pop();
+                },
+                btnCancelText: 'نعم'
+              ).show();
+              return Future.value(false);
+            }
+        },
+          child: Scaffold(
+            body: provider.User.type == "3"? pagesUser[pageIndex] : pagesSupervisor[pageIndex],
+            bottomNavigationBar: Container(
+              height: 80.h,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        pageIndex = 0;
+                      });
+                    },
+                    child: pageIndex == 0 ?
+                        NavBarOnButton(
+                          pathImage: 'assets/images/Home1.svg',
+                          title: 'الرئيسة',
+                        )
+                        : NavBarOffButton(title: 'الرئيسة', pathImage: 'assets/images/Home2.svg'),),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        pageIndex = 1;
+                      });
+                    },
+                    child: pageIndex == 1 ?
+                    NavBarOnButton(
+                      pathImage: 'assets/images/Group979.svg',
+                      title: 'العقود',
+                    )
+                        : NavBarOffButton(title: 'العقود', pathImage: 'assets/images/عقود2.svg'),),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        pageIndex = 2;
+                      });
+                    },
+                    child: pageIndex == 2 ?
+                    NavBarOnButton(
+                      pathImage: 'assets/images/متابعة الاعمال1.svg',
+                      title:provider.User.type == "3"? 'متابعة الاعمال' : 'اعمال وفواتير',
+                    )
+                        : NavBarOffButton(title: provider.User.type == "3"? 'متابعة الاعمال' : 'اعمال وفواتير', pathImage: 'assets/images/متابعة الاعمال2.svg'),),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        pageIndex = 3;
+                      });
+                    },
+                    child: pageIndex == 3 ?
+                    NavBarOnButton(
+                      pathImage: 'assets/images/فواتير1.svg',
+                      title:provider.User.type == "3"? 'الفواتير' : 'السندات',
+                    )
+                        : NavBarOffButton(title:provider.User.type == "3"? 'الفواتير' : 'السندات', pathImage: 'assets/images/فواتير2.svg'),),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        pageIndex = 4;
+                      });
+                    },
+                    child: pageIndex == 4 ?
+                    NavBarOnButton(
+                      pathImage: provider.User.type == "3"? 'assets/images/تواصل معنا1.svg' : 'assets/images/جدول الاعمال1.svg',
+                      title: provider.User.type == "3"? 'تواصل معنا' : 'جدول الاعمال',
+                    )
+                        : NavBarOffButton(title: provider.User.type == "3"? 'تواصل معنا' : 'جدول الاعمال',
+                        pathImage: provider.User.type == "3"? 'assets/images/جدول الاعمال1.svg' : 'assets/images/جدول الاعمال2.svg'),),
+
+                ],
+              ),
+            ),
+          ),
+        );
+      }
     );
   }
 }

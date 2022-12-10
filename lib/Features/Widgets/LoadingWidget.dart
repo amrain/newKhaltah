@@ -15,19 +15,11 @@ class LoadingWidget extends StatelessWidget {
       height: 140.h,
       width: 120.w,
       decoration: BoxDecoration(
-          color: Colors.white54,
+          color: Colors.white70,
           // color: ColorUi.mainColor.withOpacity(.5),
           borderRadius: BorderRadius.circular(10.r)
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children:  [
-          LoadingAnimationWidget.fourRotatingDots(color: ColorUi.mainColor, size: 100),
-          // // const CircularProgressIndicator(color: Colors.white,),
-          // SizedBox(height: 15.h,),
-          // const Text('انتظار ...',style: TextStyle(color: Colors.white),),
-        ],
-      ),
+      child: LoadingAnimationWidget.fourRotatingDots(color: ColorUi.mainColor, size: 80),
     );
   }
 }

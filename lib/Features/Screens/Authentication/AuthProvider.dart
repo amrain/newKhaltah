@@ -1,7 +1,9 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Helper/AuthHelper.dart';
+import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 
 import '../../../Models/AuthModel.dart';
@@ -68,6 +70,8 @@ class AuthProvider extends ChangeNotifier{
 
     if(User.status == true){
        AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
+       Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts();
+       // User.type = '2';
      }
      else{
        AwesomeDialog(
@@ -97,6 +101,7 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
     if(User.status == true){
       AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
+      Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts();
     }
     else{
       AwesomeDialog(

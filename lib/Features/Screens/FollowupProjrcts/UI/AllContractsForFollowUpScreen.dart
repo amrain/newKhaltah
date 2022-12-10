@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
@@ -24,7 +25,7 @@ class AllContractsForFollowUpScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text('العقود',style: TextStyle(fontSize: 18.sp),),
+            title: HeadShake(child: Text('متابعة الاعمال',style: TextStyle(fontSize: 18.sp),)),
           ),
           body: SafeArea(
             child: Column(

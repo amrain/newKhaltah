@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/ColorUi.dart';
-import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
+import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Screens/Notification/NotificationProvider.dart';
 import 'package:khaltah/Features/Screens/Notification/NotificationScreen.dart';
 import 'package:khaltah/Features/Screens/SettingsScreen.dart';
@@ -17,7 +20,7 @@ class SHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(
+    return Consumer<SHomeProvider>(
       builder: (context,provider,x) {
         return Scaffold(
           body: Stack(
@@ -31,18 +34,31 @@ class SHomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text('مرحبا بك في منزلك الجديد',style: TextStyle(color: Colors.white,fontSize: 18.sp),),
+                          BounceInRight(child: Text('مرحبا بك يا مشرف',style: TextStyle(color: Colors.white,fontSize: 20.sp),)),
                           const Spacer(),
-                          IconButton(onPressed: (){
-                            AppRouter.NavigatorToWidget(SettingsScreen());
+                          ZoomIn(
+                            child: IconButton(onPressed: (){
+                              log('message');
+                              provider.getDashboard();
+                              Provider.of<ContractsProvider>(context,listen: false).getAllContracts();
+                            },
+                                icon: Icon(Icons.refresh,color: Colors.white,)),
+                          ),
+                          ZoomIn(
+                            child: IconButton(onPressed: (){
+                              AppRouter.NavigatorToWidget(SettingsScreen());
 
-                          },
-                              icon: Icon(Icons.settings,color: Colors.white,)),
-                          IconButton(onPressed: (){
-                            Provider.of<NotificationProvider>(context,listen: false).getNotification();
-                            AppRouter.NavigatorToWidget(NotificationScreen());
-                          },
-                              icon: Icon(Icons.notifications,color: Colors.white,)),
+                            },
+                                icon: Icon(Icons.settings,color: Colors.white,)),
+                          ),
+                          ZoomIn(
+                            child: IconButton(onPressed: (){
+                              Provider.of<NotificationProvider>(context,listen: false).getNotification();
+                              AppRouter.NavigatorToWidget(NotificationScreen());
+                            },
+                                icon: Icon(Icons.notifications,color: Colors.white,)),
+                          ),
+
                         ],
                       ),
                     ),
@@ -55,9 +71,9 @@ class SHomeScreen extends StatelessWidget {
                           borderRadius: BorderRadius.only(topLeft: Radius.circular(15.r),topRight: Radius.circular(15.r))
                         ),
                         child:
-                        // provider.ProjectsTasheed.isEmpty ?
-                        // const Center(child: LoadingWidget())
-                        //     :
+                        provider.loading ?
+                        const Center(child: LoadingWidget())
+                            :
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,15 +82,15 @@ class SHomeScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                BoxHome(title: "العقود", number: "4"),
-                                BoxHome(title: "الاعمال", number: "4"),
+                                FadeInRight(child: BoxHome(title: "العقود", number: provider.dashboard!.contracts.toString())),
+                                FadeInDown(child: BoxHome(title: "الاعمال", number: provider.dashboard!.work.toString())),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                BoxHome(title: "فواتير", number: "4"),
-                                BoxHome(title: "جدول الاعمال", number: "4"),
+                                FadeInUp(child: BoxHome(title: "فواتير", number: provider.dashboard!.invoices.toString())),
+                                FadeInLeft(child: BoxHome(title: "جدول الاعمال", number: provider.dashboard!.scheduleOfWork.toString())),
                               ],
                             )
                           ],

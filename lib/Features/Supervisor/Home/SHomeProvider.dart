@@ -2,32 +2,26 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:khaltah/Helper/ProjectsHelper.dart';
+import 'package:khaltah/Helper/SHomeHelper.dart';
 import 'package:khaltah/Models/AllProjectsModal.dart';
 import 'package:khaltah/Models/AllSectionsModel.dart';
+import 'package:khaltah/Models/DashboardModel.dart';
 
 class SHomeProvider extends ChangeNotifier{
-  HomeProvider(){
-    // getAllProjects();
+  SHomeProvider(){
+    getDashboard();
   }
-
-
-
-  //  List<Project> ProjectsTasheed = [];
-  //  List<Project> ProjectsTashteb = [];
-  //  List<Project> AllProjects = [];
-  //
-  //
-  // getAllProjects()async{
-  //   AllProjectsModal allProjects = await HomeHelper.homeHelper.getAllProjects();
-  //   AllProjects = allProjects.data!;
-  //   ProjectsTasheed = AllProjects.where((element) {
-  //     return element.type! == "1";
-  //   }).toList();
-  //   ProjectsTashteb = AllProjects.where((element) {
-  //     return element.type! == "2";
-  //   }).toList();
-  //   notifyListeners();
-  // }
+  bool loading = false;
+  Dashboard? dashboard;
+  getDashboard()async{
+    loading = true;
+    notifyListeners();
+    DashboardModel dashboardModel = await SHomeHelper.sHomeHelper.getDashboard();
+    dashboard = dashboardModel.data!;
+    loading = false;
+    notifyListeners();
+    log('getDashboard');
+  }
 
 
 }

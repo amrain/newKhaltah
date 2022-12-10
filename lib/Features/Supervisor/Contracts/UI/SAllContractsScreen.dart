@@ -9,11 +9,11 @@ import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 
-import 'ContractScreen.dart';
+import 'SContractScreen.dart';
 
 
-class AllContractsScreen extends StatelessWidget {
-  const AllContractsScreen({Key? key}) : super(key: key);
+class SAllContractsScreen extends StatelessWidget {
+  const SAllContractsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class AllContractsScreen extends StatelessWidget {
                       return InkWell(
                         onTap: (){
                           provider.getContractStatus(provider.contracts![index].id!);
-                          AppRouter.NavigatorToWidget(ContractScreen());
+                          AppRouter.NavigatorToWidget(SContractScreen());
                         },
                         child: Container(
                           height: 50.h,

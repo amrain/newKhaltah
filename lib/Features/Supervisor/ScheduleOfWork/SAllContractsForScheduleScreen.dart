@@ -44,7 +44,7 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
                       :
                   Expanded(
                     child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: providerB.contracts!.length,
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: (){

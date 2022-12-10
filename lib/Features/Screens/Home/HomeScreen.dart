@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
@@ -34,18 +35,22 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text('مرحبا بك في منزلك الجديد',style: TextStyle(color: Colors.white,fontSize: 18.sp),),
+                          BounceInRight(child: Text('مرحبا بك في منزلك الجديد',style: TextStyle(color: Colors.white,fontSize: 18.sp),)),
                           const Spacer(),
-                          IconButton(onPressed: (){
-                            AppRouter.NavigatorToWidget(SettingsScreen());
+                          ZoomIn(
+                            child: IconButton(onPressed: (){
+                              AppRouter.NavigatorToWidget(SettingsScreen());
 
-                          },
-                              icon: Icon(Icons.settings,color: Colors.white,)),
-                          IconButton(onPressed: (){
-                            Provider.of<NotificationProvider>(context,listen: false).getNotification();
-                            AppRouter.NavigatorToWidget(NotificationScreen());
-                          },
-                              icon: Icon(Icons.notifications,color: Colors.white,)),
+                            },
+                                icon: Icon(Icons.settings,color: Colors.white,)),
+                          ),
+                          ZoomIn(
+                            child: IconButton(onPressed: (){
+                              Provider.of<NotificationProvider>(context,listen: false).getNotification();
+                              AppRouter.NavigatorToWidget(NotificationScreen());
+                            },
+                                icon: Icon(Icons.notifications,color: Colors.white,)),
+                          ),
                         ],
                       ),
                     ),
@@ -64,71 +69,79 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('التشييد والبناء',style: TextStyle(color: ColorUi.mainColor,fontSize: 20.sp),),
+                            ZoomIn(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('التشييد والبناء',style: TextStyle(color: ColorUi.mainColor,fontSize: 20.sp),),
+                              ),
                             ),
                             SizedBox(height: 15.h,),
-                            SizedBox(
-                              height: 120.h,
-                              child: ListView.builder(
-                                  itemCount: provider.ProjectsTasheed.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          Provider.of<SectionProvider>(context,listen: false).getSections(provider.ProjectsTasheed[index].id.toString());
-                                          AppRouter.NavigatorToWidget(SectionScreen());
-                                        },
-                                        child: Column(
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: Color(0xffEEF7FC),
-                                                radius: 40.r,
-                                                child: Image.network("${API.imageUrl}${provider.ProjectsTasheed[index].icon}"),
-                                              ),
-                                              SizedBox(height: 5.h,),
-                                              Text(provider.ProjectsTasheed[index].name??"",style: TextStyle(color: ColorUi.mainColor,fontSize: 10.sp),),
-                                            ]),
-                                      ),
-                                    );
-                                  }),
+                            FadeInLeft(
+                              child: SizedBox(
+                                height: 120.h,
+                                child: ListView.builder(
+                                    itemCount: provider.ProjectsTasheed.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            Provider.of<SectionProvider>(context,listen: false).getSections(provider.ProjectsTasheed[index].id.toString());
+                                            AppRouter.NavigatorToWidget(SectionScreen());
+                                          },
+                                          child: Column(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor: Color(0xffEEF7FC),
+                                                  radius: 40.r,
+                                                  child: Image.network("${API.imageUrl}${provider.ProjectsTasheed[index].icon}"),
+                                                ),
+                                                SizedBox(height: 5.h,),
+                                                Text(provider.ProjectsTasheed[index].name??"",style: TextStyle(color: ColorUi.mainColor,fontSize: 10.sp),),
+                                              ]),
+                                        ),
+                                      );
+                                    }),
+                              ),
                             ),
                             SizedBox(height: 30.h,),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text('التشطيبات',style: TextStyle(color: Color(0xff808000),fontSize: 20.sp),),
+                            FadeInRight(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('التشطيبات',style: TextStyle(color: Color(0xff808000),fontSize: 20.sp),),
+                              ),
                             ),
                             SizedBox(height: 15.h,),
-                            SizedBox(
-                              height: 120.h,
+                            SlideInUp(
+                              child: SizedBox(
+                                height: 120.h,
 
-                              child: ListView.builder(
-                                  itemCount: 4,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          Provider.of<SectionProvider>(context,listen: false).getSections(provider.ProjectsTashteb[index].id.toString());
-                                          AppRouter.NavigatorToWidget(SectionScreen());
-                                        },
-                                        child: Column(
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: Color(0xffF9F9E4),
-                                                radius: 40.r,
-                                                child: Image.network("${API.imageUrl}${provider.ProjectsTashteb[index].icon}"),
-                                              ),
-                                              SizedBox(height: 5.h,),
-                                              Text(provider.ProjectsTashteb[index].name??"",style: TextStyle(color: Color(0xff808000),fontSize: 10.sp),),
-                                            ]),
-                                      ),
-                                    );
-                                  }),
+                                child: ListView.builder(
+                                    itemCount: 4,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            Provider.of<SectionProvider>(context,listen: false).getSections(provider.ProjectsTashteb[index].id.toString());
+                                            AppRouter.NavigatorToWidget(SectionScreen());
+                                          },
+                                          child: Column(
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor: Color(0xffF9F9E4),
+                                                  radius: 40.r,
+                                                  child: Image.network("${API.imageUrl}${provider.ProjectsTashteb[index].icon}"),
+                                                ),
+                                                SizedBox(height: 5.h,),
+                                                Text(provider.ProjectsTashteb[index].name??"",style: TextStyle(color: Color(0xff808000),fontSize: 10.sp),),
+                                              ]),
+                                        ),
+                                      );
+                                    }),
+                              ),
                             )
                           ],
                         ),

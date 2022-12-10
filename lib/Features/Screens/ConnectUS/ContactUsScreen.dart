@@ -1,5 +1,5 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,7 @@ import '../../ColorUi.dart';
 import 'ConnectUSProvider.dart';
 
 class ContactUsScreen extends StatelessWidget {
-  const ContactUsScreen({Key? key}) : super(key: key);
+   ContactUsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class ContactUsScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text('تواصل معنا',style: TextStyle(fontSize: 18.sp),),
+            title: HeadShake(child: Text('تواصل معنا',style: TextStyle(fontSize: 18.sp),)),
             centerTitle: false,
 
           ),

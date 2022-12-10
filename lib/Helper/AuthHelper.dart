@@ -128,10 +128,8 @@ class AuthHelper {
           Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).resetNewPassController.clear();
           Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).resetOldPassController.clear();
           Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).resetConfirmPassController.clear();
-
         },
       ).show();
-
     }else{
       AwesomeDialog(
         context: AppRouter.navKey.currentContext!,
@@ -142,9 +140,6 @@ class AuthHelper {
         btnOkText: 'موافق',
         btnOkOnPress: () {},
       ).show();
-
-
-
     }
 
 
