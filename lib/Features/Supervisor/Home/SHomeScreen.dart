@@ -40,7 +40,7 @@ class SHomeScreen extends StatelessWidget {
                             child: IconButton(onPressed: (){
                               log('message');
                               provider.getDashboard();
-                              Provider.of<ContractsProvider>(context,listen: false).getAllContracts();
+                              Provider.of<ContractsProvider>(context,listen: false).getAllContractsSupervisor();
                             },
                                 icon: Icon(Icons.refresh,color: Colors.white,)),
                           ),

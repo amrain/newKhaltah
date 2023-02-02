@@ -5,6 +5,8 @@ import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/LoginScreen.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
 import 'package:khaltah/Features/Supervisor/Bond/SBondProvider.dart';
+import 'package:khaltah/Features/Supervisor/ScheduleOfWork/SScheduleProvider.dart';
+import 'package:khaltah/Helper/SScheduleHelper.dart';
 import 'package:provider/provider.dart';
 import 'AppRouter.dart';
 import 'Features/Screens/Authentication/AuthProvider.dart';
@@ -16,6 +18,7 @@ import 'Features/Screens/Home/Section/SectionProvider.dart';
 import 'Features/Screens/Notification/NotificationProvider.dart';
 import 'Features/Screens/SplachScreen.dart';
 import 'Features/Supervisor/Home/SHomeProvider.dart';
+import 'Features/Supervisor/WorkAndBill/SWorkAndBillProvider.dart';
 
 
 void main() async{
@@ -79,6 +82,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SBondProvider>(
           create: (context) {
             return SBondProvider();
+          },),
+        ChangeNotifierProvider<SScheduleProvider>(
+          create: (context) {
+            return SScheduleProvider();
+          },),
+        ChangeNotifierProvider<SWorkAndBillProvider>(
+          create: (context) {
+            return SWorkAndBillProvider();
           },),
 
       ],

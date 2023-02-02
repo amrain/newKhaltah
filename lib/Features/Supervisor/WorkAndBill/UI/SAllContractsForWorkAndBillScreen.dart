@@ -11,10 +11,10 @@ import 'package:khaltah/Features/Screens/FollowupProjrcts/FollowUpProvider.dart'
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 
-import 'SAddScheduleScreen.dart';
+import 'SWorkAndBillScreen.dart';
 
-class SAllContractsForScheduleScreen extends StatelessWidget {
-  const SAllContractsForScheduleScreen({Key? key}) : super(key: key);
+class SAllContractsForWorkAndBillScreen extends StatelessWidget {
+  const SAllContractsForWorkAndBillScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text('جدولة الأعمال',style: TextStyle(fontSize: 18.sp),),
+              title: Text('الاعمال والفواتير',style: TextStyle(fontSize: 18.sp),),
             ),
             body: SafeArea(
               child: Column(
@@ -50,8 +50,8 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
                             onTap: (){
                               // provider.getFollowUp(10);
                               log(providerB.contracts![index].id!.toString());
-                              provider.getFollowUp(providerB.contracts![index].id!);
-                              AppRouter.NavigatorToWidget(SAddScheduleScreen());
+                              // provider.getFollowUp(providerB.contracts![index].id!);
+                              AppRouter.NavigatorToWidget(SWorkAndBillScreen(contract: providerB.contracts![index],));
                             },
                             child: Container(
                               height: 50.h,

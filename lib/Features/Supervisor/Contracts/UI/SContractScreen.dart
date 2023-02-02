@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Screens/Contracts/UI/ViewPDFScreen.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
@@ -28,39 +29,6 @@ class _SContractScreenState extends State<SContractScreen> {
 
   int select = 1;
   bool open = false;
-  // continued(){
-  //   _currentStep < 4 ?
-  //   setState(() {
-  //     if(_currentStep < 2 ) {
-  //         _currentStep += 1;
-  //         open = false; }
-  //     else {
-  //         _currentStep += 1;
-  //         open = true; }
-  //     } ): null;
-  //   log((_currentStep+1).toString());
-  //   log(open.toString());
-  // }
-  // cancel(){
-  //   _currentStep > 0 ?
-  //   setState(() => _currentStep -= 1) : null;
-  // }
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   setState(() {
-  //     _currentStep = Provider.of<ContractsProvider>(context, listen: false)
-  //         .contractStatus!
-  //         .status!;
-  //     if (Provider.of<ContractsProvider>(context, listen: false)
-  //         .contractStatus!
-  //         .status! >=
-  //         3) {
-  //       open = true;
-  //     }
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     return  Consumer<ContractsProvider>(
@@ -298,6 +266,7 @@ class _SContractScreenState extends State<SContractScreen> {
                         Step(
                           title: new Text('معتمد من قبل العميل'),
                           content:
+                              Provider.of<AuthProvider>(context,listen: false).User.type == "3" ?
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -417,7 +386,22 @@ class _SContractScreenState extends State<SContractScreen> {
                               )
                               :Container(),
                             ],
-                          ),
+                          )
+                                  :
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                               provider.contractStatus!.status! == 2 ? "تم الموافقة من قبل العمل" :
+                               provider.contractStatus!.status! == 3 ? "تم طلب المراجعة من قبل العمل" :
+                               provider.contractStatus!.status! == 4 ? "تم رفض من قبل العمل" :
+                               provider.contractStatus!.status! == 1 ? "في إنتظار موافقة العميل ..." : "تم الموافقة من قبل العمل"
+                              ),
+                              Container()
+                            ],
+                          )
+                          ,
                           isActive: provider.currentStep == 2,
                           state: provider.contractStatus!.status! >= 1 ?
                           StepState.complete : StepState.disabled,

@@ -25,6 +25,15 @@ class ContractsHelper {
     );
     return AllContractsModel.fromJson(response.data);
   }
+  Future<AllContractsModel> getAllContractsSupervisor()async{
+    Response response = await dio.get("$basedUrl/contract",
+      options: Options(
+        headers: <String, dynamic>{
+          "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+        },),
+    );
+    return AllContractsModel.fromJson(response.data);
+  }
 
   Future<ContractStatusModel> ContractStatus(int idContract)async{
     log("$basedUrl/contracts/status/$idContract");

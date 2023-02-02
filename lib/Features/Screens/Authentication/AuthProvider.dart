@@ -70,7 +70,10 @@ class AuthProvider extends ChangeNotifier{
 
     if(User.status == true){
        AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
-       Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts();
+       User.type == '3'?
+       Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts()
+       : Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContractsSupervisor()
+       ;
        // User.type = '2';
      }
      else{
@@ -101,7 +104,10 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
     if(User.status == true){
       AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
-      Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts();
+      User.type == '3'?
+      Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts()
+          : Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContractsSupervisor()
+      ;
     }
     else{
       AwesomeDialog(

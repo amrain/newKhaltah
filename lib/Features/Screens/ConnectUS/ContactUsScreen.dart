@@ -30,49 +30,58 @@ class ContactUsScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFieldWidget(hintText: '+966591234567',
-                        labelText: 'رقم الموبايل',
-                        controller: provider.phone,
-                        validator: provider.phoneValidation,
+                      FadeInLeft(
+                        child: TextFieldWidget(hintText: '+966591234567',
+                          labelText: 'رقم الموبايل',
+                          controller: provider.phone,
+                          validator: provider.phoneValidation,
+                        ),
                       ),
                       SizedBox(height: 25.h,),
-                      TextFieldWidget(hintText: 'example@mail.com',
-                        labelText: 'البريد الإلكتروني',
-                        controller: provider.email,
-                        validator: provider.emailValidation,
+                      FadeInRight(
+                        child: TextFieldWidget(hintText: 'example@mail.com',
+                          labelText: 'البريد الإلكتروني',
+                          controller: provider.email,
+                          validator: provider.emailValidation,
+                        ),
                       ),
                       SizedBox(height: 50.h,),
-                      Text('نص الرسالة'),
+                      FadeInLeft(child: Text('نص الرسالة')),
                       SizedBox(height: 15.h,),
-                      TextFieldWidget(hintText: 'نص الرسالة ...',maxLine: 7,
-                        controller: provider.content,
-                        validator: provider.nullValidation,
+                      FadeInRight(
+                        child: TextFieldWidget(hintText: 'نص الرسالة ...',maxLine: 7,
+                          controller: provider.content,
+                          validator: provider.nullValidation,
+                        ),
                       ),
                       SizedBox(height: 20.h,),
-                      InkWell(
-                        onTap: (){
-                          if(provider.ConnectUsKey!.currentState!.validate()){
-                            provider.ConnectUS();
-                          }
-                        },
-                        child: Container(
-                          height: 48.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color:  ColorUi.mainColor,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x26000000),
-                                offset: Offset(0, 3),
-                                blurRadius: 15,
-                              ),
-                            ],
+                      FadeInUp(
+                        //
+                        child: InkWell(
+                          onTap: (){
+                            if(provider.ConnectUsKey!.currentState!.validate()){
+                              provider.ConnectUS();
+                            }
+                          },
+                          child: Container(
+                            height: 48.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color:  ColorUi.mainColor,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x26000000),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 15,
+                                ),
+                              ],
+                            ),
+                            child:
+                                provider.loading?
+                                    CircularProgressIndicator(color: Colors.white,):
+                            Text('ارسال',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                           ),
-                          child:
-                              provider.loading?
-                                  CircularProgressIndicator(color: Colors.white,):
-                          Text('ارسال',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                         ),
                       ),
 

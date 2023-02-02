@@ -33,7 +33,7 @@ class AllContractsModel {
 class Contract {
   int? id;
   String? code;
-  int? idCardNumber;
+  String? idCardNumber;
 
   Contract({this.id, this.code, this.idCardNumber});
 

@@ -7,6 +7,7 @@ import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:khaltah/Features/Widgets/ViewPhotoScreen.dart';
 import 'package:khaltah/Helper/API.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../ColorUi.dart';
 import '../../../Widgets/TextFieldWidget.dart';
@@ -43,42 +44,23 @@ class FollowupProjectsScreen extends StatelessWidget {
                         itemCount: provider.followUp!.length,
                         itemBuilder: (context, index) {
                           return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text(provider.followUp![index].name!,style: TextStyle(fontSize: 18.sp,height: 2.h,fontWeight: FontWeight.bold),),
+                              SizedBox(height: 10.h,),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-
-                                      Text(provider.followUp![index].name!,style: TextStyle(fontSize: 15.sp,height: 2.h),),
-
-                                      Row(
-                                        children: [
-                                          Text('تاريخ الفاتورة',style: TextStyle(fontSize: 10.sp),),
-                                          SizedBox(width: 5.w,),
-                                          Text(provider.followUp![index].date!,style: TextStyle(color: Colors.grey,fontSize: 10.sp),),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  // index==0?
-                                  // Container(
-                                  //   margin: EdgeInsets.all(5),
-                                  //   padding: EdgeInsets.all(5),
-                                  //   decoration: BoxDecoration(
-                                  //       color: Color(0xffEEF7FC),
-                                  //       borderRadius: BorderRadius.circular(10)
-                                  //   ),
-                                  //   child: Row(
-                                  //     mainAxisSize: MainAxisSize.min,
-                                  //     children: [
-                                  //       SvgPicture.asset('assets/images/Group979.svg',height: 30.h,),
-                                  //       Text(" "+'001244')
-                                  //     ],
-                                  //    ),
-                                  // )
-                                  // :const SizedBox(),
+                                  Text('تاريخ البدء',style: TextStyle(fontSize: 10.sp),),
+                                  SizedBox(width: 5.w,),
+                                  Text(provider.followUp![index].startDate!,style: TextStyle(color: Colors.grey,fontSize: 10.sp),),
+                                ],
+                              ),
+                              SizedBox(height: 5.h,),
+                              Row(
+                                children: [
+                                  Text('تاريخ النهاية',style: TextStyle(fontSize: 10.sp),),
+                                  SizedBox(width: 5.w,),
+                                  Text(provider.followUp![index].endDate!,style: TextStyle(color: Colors.grey,fontSize: 10.sp),),
                                 ],
                               ),
                               SizedBox(height: 15.h,),
@@ -86,15 +68,33 @@ class FollowupProjectsScreen extends StatelessWidget {
                                 height: 120.h,
                                 child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: provider.followUp![index].image!.length,
+                                    itemCount: provider.followUp![index].images!.length,
                                     itemBuilder: (context, indexImage) {
                                       return GestureDetector(
                                         onTap: (){
-                                          AppRouter.NavigatorToWidget(ViewPhotoScreen("${API.imageUrl}${provider.followUp![index].image![indexImage].image}"));
+                                          AppRouter.NavigatorToWidget(ViewPhotoScreen("${API.imageUrl}${provider.followUp![index].images![indexImage].image}"));
                                         },
-                                          child: Image.network("${API.imageUrl}${provider.followUp![index].image![indexImage].image}"));
+                                          child: Image.network("${API.imageUrl}${provider.followUp![index].images![indexImage].image}"));
                                     }),
                               ),
+                              SizedBox(
+                                height: 150.h,
+                                child: VideoProgressIndicator(
+                                    VideoPlayerController.network("${API.imageUrl}${provider.followUp![index].workVideo!}")
+                                      ..initialize().then((value) {
+                                        provider.notifyListeners();
+                                      }),  //video player controller
+                                    allowScrubbing: false,
+                                    colors:VideoProgressColors( //video player progress bar
+                                      backgroundColor: Colors.redAccent,
+                                      playedColor: Colors.green,
+                                      bufferedColor: Colors.purple,
+                                    )
+
+                                ),
+                              ),
+                              SizedBox(height: 5.h,),
+                              const Divider(thickness: 1,),
                               SizedBox(height: 15.h,),
                             ],
                           );

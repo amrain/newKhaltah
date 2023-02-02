@@ -1,6 +1,8 @@
 
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Models/AboutAsModel.dart';
@@ -14,15 +16,30 @@ class AboutAsHelper {
   Dio dio = Dio();
   String basedUrl = API.basedUrl;
 
-   Future<AboutUs> aboutUs ()async{
-    Response  response = await dio.get("$basedUrl/about_us",
-    options: Options(
-      headers: {
-        "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
-      }
-    ));
-    AboutUsModel aboutUsModel = AboutUsModel.fromJson(response.data);
-    return aboutUsModel.data!;
+    aboutUs ()async{
+     try{
+       Response  response = await dio.get("$basedUrl/about_us",
+           options: Options(
+               headers: {
+                 "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+               }
+           ));
+       AboutUsModel aboutUsModel = AboutUsModel.fromJson(response.data);
+       return aboutUsModel.data!;
+     }
+     catch(e){
+       Fluttertoast.showToast(
+           msg: 'حدث خطأ غير متوقع',
+           toastLength: Toast.LENGTH_SHORT,
+           gravity: ToastGravity.CENTER,
+           timeInSecForIosWeb: 1,
+           backgroundColor: Colors.red,
+           textColor: Colors.white,
+           fontSize: 16.0
+       );
+
+     }
+
   }
 
 

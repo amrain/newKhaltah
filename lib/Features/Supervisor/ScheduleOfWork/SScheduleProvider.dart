@@ -6,27 +6,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Helper/ConnectUsHelper.dart';
 import 'package:khaltah/Helper/SBondHelper.dart';
+import 'package:khaltah/Helper/SScheduleHelper.dart';
 import 'package:string_validator/string_validator.dart';
 
-class SBondProvider extends ChangeNotifier{
-  GlobalKey<FormState>? BondKey = GlobalKey();
-  TextEditingController number = TextEditingController();
+class SScheduleProvider extends ChangeNotifier{
+  GlobalKey<FormState>? ScheduleKey = GlobalKey();
   TextEditingController name = TextEditingController();
-  TextEditingController amount = TextEditingController();
-  TextEditingController reason = TextEditingController();
+  TextEditingController email = TextEditingController();
   TextEditingController date = TextEditingController();
+
 
   bool loading = false;
   nullValidation(String v){
     if(v.isEmpty) {
       return 'هذا الحقل مطلوب';
     }}
+  emailValidation(String v){
+    if(v.isEmpty) {
+      return 'هذا الحقل مطلوب';
+    }
+    else if(!isEmail(v)) {
+      return 'هذا البريد غير صحيح';
+    }
+  }
 
 
-  BondStore()async{
+  ScheduleStore(String id)async{
     loading = true;
     notifyListeners();
-    await SBondHelper.sBondHelper.BondStore(number.text, name.text, amount.text, reason.text, date.text);
+    await SScheduleHelper.sScheduleHelper.ScheduleStore(id, name.text, email.text, date.text);
     // log(response.data.toString());
     loading = false;
     notifyListeners();
@@ -35,13 +43,11 @@ class SBondProvider extends ChangeNotifier{
       dialogType: DialogType.success,
       animType: AnimType.scale,
       title: 'تم الارسال',
-      desc: 'تم إضافة السند',
+      desc: 'تم إضافة الجدول',
       btnOkText: 'موافق',
       btnOkOnPress: () {
-        number.clear();
         name.clear();
-        amount.clear();
-        reason.clear();
+        email.clear();
         date.clear();
         notifyListeners();
       },

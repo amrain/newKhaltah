@@ -30,11 +30,13 @@ class AllContractsForBillsScreen extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFieldWidget(hintText: 'بحث',
-                    suffix: IconButton(onPressed: (){},
-                        icon: Icon(Icons.search)),
+                FadeInLeft(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextFieldWidget(hintText: 'بحث',
+                      suffix: IconButton(onPressed: (){},
+                          icon: Icon(Icons.search)),
+                    ),
                   ),
                 ),
                 SizedBox(height: 15.h,),
@@ -45,33 +47,35 @@ class AllContractsForBillsScreen extends StatelessWidget {
                 Text('لا يوجد عقود')
                     :
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: 5,
-                      itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: (){
-                        provider.getBills(providerB.contracts![index].id!);
-                        // provider.getBills(1);
-                        AppRouter.NavigatorToWidget(BillsScreen());
-                      },
-                      child: Container(
-                        height: 50.h,
-                        padding: EdgeInsets.all(8),
-                        margin: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)
+                  child: FadeInRight(
+                    child: ListView.builder(
+                      itemCount: providerB.contracts?.length,
+                        itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: (){
+                          provider.getBills(providerB.contracts![index].id!);
+                          // provider.getBills(1);
+                          AppRouter.NavigatorToWidget(BillsScreen());
+                        },
+                        child: Container(
+                          height: 50.h,
+                          padding: EdgeInsets.all(8),
+                          margin: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
+                              SizedBox(width: 8.w,),
+                              Text(providerB.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
-                            SizedBox(width: 8.w,),
-                            Text(providerB.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+                  ),
                 )
 
               ],

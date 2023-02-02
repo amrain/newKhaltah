@@ -7,14 +7,18 @@ class AboutUsProvider extends ChangeNotifier{
   String? whoWe;
   String? conditions;
   bool loading = false;
+
   aboutUs()async{
     loading = true;
     notifyListeners();
+
     AboutUs myAboutUs = await AboutAsHelper.aboutAsHelper.aboutUs();
     whoWe = myAboutUs.content;
     conditions = myAboutUs.termsConditions;
+
     loading = false;
     notifyListeners();
+
   }
 
 

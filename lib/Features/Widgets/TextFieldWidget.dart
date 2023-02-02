@@ -8,7 +8,6 @@ class TextFieldWidget extends StatelessWidget {
   TextEditingController? controller;
   Widget? suffix;
   final Function? validator;
-
   int? maxLine;
   TextInputType? textInputType;
   bool? isPassword;
@@ -33,9 +32,6 @@ class TextFieldWidget extends StatelessWidget {
         obscureText: isPassword??false,
         keyboardType: textInputType,
         enabled: enabled,
-
-
-
         maxLines: maxLine??1,
         validator: (x)=>validator!(x),
         textAlignVertical: TextAlignVertical.center,
@@ -56,8 +52,6 @@ class TextFieldWidget extends StatelessWidget {
             borderSide: BorderSide(color: ColorUi.Color2, width: .5),
           ),
           suffixIcon: suffix,
-
-
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 15.sp,color: Colors.grey),
           labelText: labelText,

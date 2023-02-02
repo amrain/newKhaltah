@@ -1,12 +1,15 @@
+
 class ContractStatusModel {
-  bool? status;
+  String? status;
+  int? errors;
   int? code;
   ContractStatus? data;
 
-  ContractStatusModel({this.status, this.code, this.data});
+  ContractStatusModel({this.status, this.errors, this.code, this.data});
 
   ContractStatusModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
+    errors = json['errors'];
     code = json['code'];
     data = json['data'] != null ? new ContractStatus.fromJson(json['data']) : null;
   }
@@ -14,6 +17,7 @@ class ContractStatusModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
+    data['errors'] = this.errors;
     data['code'] = this.code;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
@@ -28,7 +32,8 @@ class ContractStatus {
   int? status;
   String? contractFile;
   int? price;
-  String? finalContract;
+  String? idCardNumber;
+  Null? finalContract;
 
   ContractStatus(
       {this.id,
@@ -36,6 +41,7 @@ class ContractStatus {
         this.status,
         this.contractFile,
         this.price,
+        this.idCardNumber,
         this.finalContract});
 
   ContractStatus.fromJson(Map<String, dynamic> json) {
@@ -44,6 +50,7 @@ class ContractStatus {
     status = json['status'];
     contractFile = json['contract_file'];
     price = json['price'];
+    idCardNumber = json['id_card_number'];
     finalContract = json['final_contract'];
   }
 
@@ -54,7 +61,10 @@ class ContractStatus {
     data['status'] = this.status;
     data['contract_file'] = this.contractFile;
     data['price'] = this.price;
+    data['id_card_number'] = this.idCardNumber;
     data['final_contract'] = this.finalContract;
     return data;
   }
 }
+
+

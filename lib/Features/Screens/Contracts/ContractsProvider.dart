@@ -33,6 +33,15 @@ class ContractsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  getAllContractsSupervisor ()async{
+    loading = true;
+    notifyListeners();
+    AllContractsModel allContractsModel = await ContractsHelper.contractsHelper.getAllContractsSupervisor();
+    contracts = allContractsModel.data;
+    loading = false;
+    notifyListeners();
+  }
+
   getContractStatus (int idContract)async{
     loading = true;
     notifyListeners();

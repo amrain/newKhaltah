@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
@@ -51,6 +53,7 @@ class AllContractsScreen extends StatelessWidget {
                       return InkWell(
                         onTap: (){
                           provider.getContractStatus(provider.contracts![index].id!);
+                          log(provider.contracts![index].id!.toString());
                           AppRouter.NavigatorToWidget(ContractScreen());
                         },
                         child: Container(

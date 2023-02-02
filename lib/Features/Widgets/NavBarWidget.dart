@@ -17,8 +17,8 @@ import '../Screens/Contracts/UI/AllContractsScreen.dart';
 import '../Screens/FollowupProjrcts/UI/AllContractsForFollowUpScreen.dart';
 import '../Screens/Home/HomeScreen.dart';
 import '../Supervisor/Bond/SBondScreen.dart';
-import '../Supervisor/ScheduleOfWork/SAllContractsForScheduleScreen.dart';
-import '../Supervisor/WorkAndBill/SAllContractsForWorkAndBillScreen.dart';
+import '../Supervisor/ScheduleOfWork/UI/SAllContractsForScheduleScreen.dart';
+import '../Supervisor/WorkAndBill/UI/SAllContractsForWorkAndBillScreen.dart';
 
 
 class NavBarWidget extends StatefulWidget {
@@ -56,24 +56,31 @@ class _NavBarWidgetState extends State<NavBarWidget> {
         return WillPopScope(
           onWillPop: () {
             if(Navigator.canPop(context)) {
-
             return Future.value(false);
           }else
             {
-              AwesomeDialog(
-                context: AppRouter.navKey.currentContext!,
-                dialogType: DialogType.warning,
-                animType: AnimType.scale,
-                title: 'الخروج من التطبيق',
-                desc: 'هل انت متأكد من الخروج من التطبيق ؟',
-                btnOkText: 'لا',
-                btnOkOnPress: () {},
-                btnCancelOnPress:(){
-                  SystemNavigator.pop();
-                },
-                btnCancelText: 'نعم'
-              ).show();
-              return Future.value(false);
+              if(pageIndex > 0){
+                pageIndex = 0;
+                provider.notifyListeners();
+                return Future.value(false);
+              }
+              else{
+                AwesomeDialog(
+                    context: AppRouter.navKey.currentContext!,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.scale,
+                    title: 'الخروج من التطبيق',
+                    desc: 'هل انت متأكد من الخروج من التطبيق ؟',
+                    btnOkText: 'لا',
+                    btnOkOnPress: () {},
+                    btnCancelOnPress:(){
+                      SystemNavigator.pop();
+                    },
+                    btnCancelText: 'نعم'
+                ).show();
+                return Future.value(false);
+              }
+
             }
         },
           child: Scaffold(
@@ -144,8 +151,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       title: provider.User.type == "3"? 'تواصل معنا' : 'جدول الاعمال',
                     )
                         : NavBarOffButton(title: provider.User.type == "3"? 'تواصل معنا' : 'جدول الاعمال',
-                        pathImage: provider.User.type == "3"? 'assets/images/جدول الاعمال1.svg' : 'assets/images/جدول الاعمال2.svg'),),
-
+                        pathImage: provider.User.type == "3"? 'assets/images/تواصل معنا2.svg' : 'assets/images/جدول الاعمال2.svg'),),
                 ],
               ),
             ),

@@ -1,3 +1,6 @@
+
+
+
 class FollowUpModel {
   String? status;
   int? errors;
@@ -34,36 +37,42 @@ class FollowUp {
   int? id;
   int? contractId;
   String? name;
-  String? date;
+  String? startDate;
+  String? endDate;
+  String? workVideo;
   int? userId;
   String? viewingStatus;
   Contract? contract;
-  List<Image>? image;
+  List<Images>? images;
 
   FollowUp(
       {this.id,
         this.contractId,
         this.name,
-        this.date,
+        this.startDate,
+        this.endDate,
+        this.workVideo,
         this.userId,
         this.viewingStatus,
         this.contract,
-        this.image});
+        this.images});
 
   FollowUp.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     contractId = json['contract_id'];
     name = json['name'];
-    date = json['date'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+    workVideo = json['work_video'];
     userId = json['user_id'];
     viewingStatus = json['viewing_status'];
     contract = json['contract'] != null
         ? new Contract.fromJson(json['contract'])
         : null;
-    if (json['image'] != null) {
-      image = <Image>[];
-      json['image'].forEach((v) {
-        image!.add(new Image.fromJson(v));
+    if (json['images'] != null) {
+      images = <Images>[];
+      json['images'].forEach((v) {
+        images!.add(new Images.fromJson(v));
       });
     }
   }
@@ -73,14 +82,16 @@ class FollowUp {
     data['id'] = this.id;
     data['contract_id'] = this.contractId;
     data['name'] = this.name;
-    data['date'] = this.date;
+    data['start_date'] = this.startDate;
+    data['end_date'] = this.endDate;
+    data['work_video'] = this.workVideo;
     data['user_id'] = this.userId;
     data['viewing_status'] = this.viewingStatus;
     if (this.contract != null) {
       data['contract'] = this.contract!.toJson();
     }
-    if (this.image != null) {
-      data['image'] = this.image!.map((v) => v.toJson()).toList();
+    if (this.images != null) {
+      data['images'] = this.images!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -105,12 +116,12 @@ class Contract {
   }
 }
 
-class Image {
+class Images {
   String? image;
 
-  Image({this.image});
+  Images({this.image});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  Images.fromJson(Map<String, dynamic> json) {
     image = json['image'];
   }
 
@@ -120,3 +131,4 @@ class Image {
     return data;
   }
 }
+

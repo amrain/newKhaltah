@@ -109,36 +109,66 @@ class Document extends StatelessWidget {
                                     TextFieldWidget(hintText: 'رقم جوال او ايميل المهندس المشرف',
                                       controller: provider.engineer_phone_emailController,),
                                     SizedBox(height: 8.h,),
+                                    TextFieldWidget(hintText: 'رقم القرار المساحي',
+                                      controller: provider.cadastral_numberController,),
+                                    SizedBox(height: 8.h,),
+                                    TextFieldWidget(hintText: 'اسم الحي',
+                                      controller: provider.neighborhoodController,),
+                                    SizedBox(height: 8.h,),
+                                    GestureDetector(
+                                      onTap: (){
+                                        provider.filePicker('cadastral_number_image');
+                                      },
+                                      child: FileButton(content: 'صورة القرار المساحي', file: provider.cadastral_number_image),
+                                    ),
+                                    SizedBox(height: 8.h,),
+                                    GestureDetector(
+                                      onTap: (){
+                                        provider.filePicker('soil_report_image');
+                                      },
+                                      child: FileButton(content: 'تقرير التربة', file: provider.soil_report_image),
+                                    ),
+                                    SizedBox(height: 8.h,),
+                                    GestureDetector(
+                                      onTap: (){
+                                        provider.filePicker('approved_bill_of_quantities_image');
+                                      },
+                                      child: FileButton(content: ' الكميات المعتمدة', file: provider.approved_bill_of_quantities_image),
+                                    ),
+                                    SizedBox(height: 8.h,),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('PDF1');
                                       },
-                                      child: FileButton(content: 'ملف 1', file: provider.PDF1),
+                                      child: FileButton(content: 'المخطط المعماري', file: provider.PDF1),
                                     ),
                                     SizedBox(height: 8.h,),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('PDF2');
                                       },
-                                      child: FileButton(content: 'ملف 2', file: provider.PDF2),
+                                      child: FileButton(content: 'المخطط الإنشائي', file: provider.PDF2),
                                     ),
                                     SizedBox(height: 8.h,),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('PDF3');
                                       },
-                                      child: FileButton(content: 'ملف 3', file: provider.PDF3),
+                                      child: FileButton(content: 'المخطط الكهربائي', file: provider.PDF3),
                                     ),
                                     SizedBox(height: 8.h,),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('PDF4');
                                       },
-                                      child: FileButton(content: 'ملف 4', file: provider.PDF4),
+                                      child: FileButton(content: 'المخطط الميكانيكي', file: provider.PDF4),
                                     ),
                                     SizedBox(height: 10.h,),
+                                    provider.openAccessory != true?
                                     InkWell(
                                       onTap: (){
+
+
 
                                         Provider.of<SectionProvider>(context,listen: false).contractsStore(
                                             section.projectId.toString(),
@@ -146,7 +176,7 @@ class Document extends StatelessWidget {
                                         // log(provider.PDF4?.paths.last.toString()??'');
                                         // log(provider.construction_type);
 
-                                        Provider.of<SectionProvider>(context,listen: false).OpenedAccessory();
+                                        // Provider.of<SectionProvider>(context,listen: false).OpenedAccessory();
                                         log(Provider.of<SectionProvider>(context,listen: false).openAccessory.toString());
                                         // log(provider.Instrument_image?.names.toString()??"no file");
                                       },
@@ -162,7 +192,7 @@ class Document extends StatelessWidget {
                                             provider.loading ? CircularProgressIndicator(color: Colors.white,) :
                                         Text('حفظ ومتابعة',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                                       ),
-                                    ),
+                                    ) : SizedBox(),
                                   ],
                                 )
                               // Text(

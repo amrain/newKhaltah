@@ -45,6 +45,11 @@ class SectionProvider extends ChangeNotifier {
   TextEditingController engineering_office_nameController = TextEditingController();
   TextEditingController engineer_nameController = TextEditingController();
   TextEditingController engineer_phone_emailController = TextEditingController();
+  TextEditingController cadastral_numberController = TextEditingController();
+  TextEditingController neighborhoodController = TextEditingController();
+  FilePickerResult? cadastral_number_image;
+  FilePickerResult? soil_report_image;
+  FilePickerResult? approved_bill_of_quantities_image;
   FilePickerResult? PDF1;
   FilePickerResult? PDF2;
   FilePickerResult? PDF3;
@@ -70,6 +75,24 @@ class SectionProvider extends ChangeNotifier {
         license_image = await FilePicker.platform.pickFiles(
           type: FileType.custom,
           allowedExtensions: ['jpg' , 'png'],
+        );
+        break;
+      case 'cadastral_number_image':
+        cadastral_number_image = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg' , 'png'],
+        );
+        break;
+      case 'soil_report_image':
+        soil_report_image = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg' , 'png'],
+        );
+        break;
+      case 'approved_bill_of_quantities_image':
+        approved_bill_of_quantities_image = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['pdf'],
         );
         break;
       case 'PDF1':
@@ -110,20 +133,29 @@ class SectionProvider extends ChangeNotifier {
         id_card_numberController.text,
         id_card_dateController.text,
         status_card_issuerController.text,
-        // File(status_card_image?.files.single.path.toString()??''),
         Instrument_noController.text,
         Instrument_dateController.text,
-        // File(Instrument_image?.files.single.path.toString()??''),
         building_permit_numberController.text,
         Instrument_dateController.text,
-        // File(license_image?.files.single.path.toString()??''),
         engineering_office_nameController.text,
         engineer_nameController.text,
         engineer_phone_emailController.text,
+        cadastral_numberController.text,
+        neighborhoodController.text,
+        status_card_image!,
+        Instrument_image!,
+        license_image!,
+        cadastral_number_image!,
+        soil_report_image!,
+        approved_bill_of_quantities_image!,
+        PDF1!,
+        PDF2!,
+        PDF3!,
+        PDF4!,
     );
     loading = false;
     notifyListeners();
-
+    OpenedAccessory();
   }
 
   getSpecialConditions(String id)async {
