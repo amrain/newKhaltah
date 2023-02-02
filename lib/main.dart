@@ -20,7 +20,7 @@ import 'Features/Screens/SplachScreen.dart';
 import 'Features/Supervisor/Home/SHomeProvider.dart';
 import 'Features/Supervisor/WorkAndBill/SWorkAndBillProvider.dart';
 
-
+//abdallah
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
