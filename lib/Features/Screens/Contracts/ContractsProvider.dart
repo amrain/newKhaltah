@@ -6,6 +6,7 @@ import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Helper/ContractsHelper.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
 import 'package:khaltah/Models/ContractStatusModel.dart';
+import 'package:khaltah/Models/SAllContractsModel.dart';
 
 import '../../../Models/ContractStatusModel.dart';
 
@@ -19,6 +20,7 @@ class ContractsProvider extends ChangeNotifier {
     notifyListeners();
   }
   List<Contract>? contracts;
+  List<SContracts>? Scontracts;
   ContractStatus? contractStatus;
   bool loading = false;
   String content = "";
@@ -36,8 +38,8 @@ class ContractsProvider extends ChangeNotifier {
   getAllContractsSupervisor ()async{
     loading = true;
     notifyListeners();
-    AllContractsModel allContractsModel = await ContractsHelper.contractsHelper.getAllContractsSupervisor();
-    contracts = allContractsModel.data;
+    SAllContractsModel allContractsModel = await ContractsHelper.contractsHelper.getAllContractsSupervisor();
+    Scontracts = allContractsModel.data?.contracts;
     loading = false;
     notifyListeners();
   }

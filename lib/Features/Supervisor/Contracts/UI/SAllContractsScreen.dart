@@ -40,17 +40,17 @@ class SAllContractsScreen extends StatelessWidget {
                 provider.loading?
                 Center(child: LoadingWidget())
                     :
-                provider.contracts?.length == 0 ?
+                provider.Scontracts?.length == 0 ?
                   Text('لا يوجد عقود')
                     :
                 Expanded(
                   child: FadeInRight(
                     child: ListView.builder(
-                      itemCount: provider.contracts!.length,
+                      itemCount: provider.Scontracts!.length,
                         itemBuilder: (context, index) {
                       return InkWell(
                         onTap: (){
-                          provider.getContractStatus(provider.contracts![index].id!);
+                          provider.getContractStatus(provider.Scontracts![index].id!);
                           AppRouter.NavigatorToWidget(SContractScreen());
                         },
                         child: Container(
@@ -65,7 +65,7 @@ class SAllContractsScreen extends StatelessWidget {
                             children: [
                               SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
                               SizedBox(width: 8.w,),
-                              Text(provider.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
+                              Text(provider.Scontracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
                             ],
                           ),
                         ),

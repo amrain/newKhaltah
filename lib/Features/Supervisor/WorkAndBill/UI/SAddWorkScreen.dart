@@ -5,12 +5,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/Features/Supervisor/WorkAndBill/SWorkAndBillProvider.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
+import 'package:khaltah/Models/SAllContractsModel.dart';
 import 'package:provider/provider.dart';
 import '../../../ColorUi.dart';
 
 class SAddWorkScreen extends StatelessWidget {
   // const SAddWorkScreen({Key? key}) : super(key: key);
-  Contract contract;
+  SContracts contract;
   SAddWorkScreen ({required this.contract});
   @override
   Widget build(BuildContext context) {

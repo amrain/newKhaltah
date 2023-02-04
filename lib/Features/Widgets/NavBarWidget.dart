@@ -60,8 +60,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
           }else
             {
               if(pageIndex > 0){
-                pageIndex = 0;
-                provider.notifyListeners();
+                setState(() {
+                  pageIndex = 0;
+                });
                 return Future.value(false);
               }
               else{

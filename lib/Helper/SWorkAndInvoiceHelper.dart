@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
 import 'package:khaltah/Features/Supervisor/WorkAndBill/SWorkAndBillProvider.dart';
@@ -37,15 +38,16 @@ class SWorkAndInvoiceHelper {
   }
 
 
-  AddWork(String id ,String name, String startDate, String endDate) async{
+  AddWork(String id ,String name, String startDate, String endDate, List<FilePickerResult> imagesWork ,FilePickerResult videoWork) async{
 
-    List<MultipartFile> listFile = [];
-    for (var i = 0; i < Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork.length; i++) {
-      listFile.add(
-        await MultipartFile.fromFile(Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork[i].path,
-            filename: Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork[i].path.split("/").last.toString()),
-      );
-    }
+    // List<MultipartFile> listFile = [];
+    // // for (var i = 0; i < Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork.length; i++) {
+    // //   listFile.add(
+    // //     await MultipartFile.fromFile(Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork[i].path,
+    // //         filename: Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork[i].path.split("/").last.toString()),
+    // //   );
+    // // }
+
 
 
     Response response = await dio.post("$basedUrl/work/store",
@@ -59,7 +61,10 @@ class SWorkAndInvoiceHelper {
             'name':name,
             'start_date':startDate,
             'end_date':endDate,
-            'image[]' : listFile,
+            'image[]' : imagesWork.map((e) async {
+              return await MultipartFile.fromFile(File(e.paths.last.toString()).path,
+                filename: e.paths.single!.split("/").last.toString(),);
+            }).toList,
 
             // 'image[]' :
             //  Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork.map((e)async{
@@ -81,8 +86,8 @@ class SWorkAndInvoiceHelper {
             //   ]
             //   ,
             'work_video': await MultipartFile.fromFile(
-              File(Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).VideoWork!.paths.last.toString()).path,
-              filename: Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).VideoWork!.paths.single!.split("/").last.toString(),),
+              File(videoWork.paths.last.toString()).path,
+              filename: videoWork.paths.single!.split("/").last.toString(),),
 
 
           }

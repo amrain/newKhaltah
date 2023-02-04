@@ -17,10 +17,10 @@ class SWorkAndBillProvider extends ChangeNotifier {
   TextEditingController nameWork = TextEditingController();
   TextEditingController startDateWork = TextEditingController();
   TextEditingController endDateWork = TextEditingController();
-  FilePickerResult? VideoWork;
+  FilePickerResult? videoWork;
   bool loading = false;
   FilePickerResult? oneImage ;
-  List<File> imagesWork = [];
+  List<FilePickerResult> imagesWork = [];
 
   filePickerImageInvoice()async{
     imageInvoice = await FilePicker.platform.pickFiles(
@@ -35,15 +35,17 @@ class SWorkAndBillProvider extends ChangeNotifier {
       type: FileType.custom,
       allowedExtensions: ['jpg' , 'png'],
     );
-    File Fileone = File(oneImage!.paths.last.toString());
+    imagesWork.add(oneImage!);
+
+    // File Fileone = File(oneImage!.paths.last.toString());
     log(oneImage!.names.last.toString());
-    imagesWork.add(File(oneImage!.paths.last.toString()));
+    // imagesWork.add(File(oneImage!.paths.last.toString()));
     log(imagesWork.length.toString()??'no 0');
     notifyListeners();
   }
 
   filePickerVideoWork()async{
-    VideoWork = await FilePicker.platform.pickFiles(
+    videoWork = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['mp4'],
     );
@@ -84,7 +86,7 @@ class SWorkAndBillProvider extends ChangeNotifier {
   AddWork(String id)async{
     loading = true;
     notifyListeners();
-    await SWorkAndInvoiceHelper.sWorkAndInvoiceHelper.AddWork(id, nameWork.text, startDateWork.text, endDateWork.text);
+    await SWorkAndInvoiceHelper.sWorkAndInvoiceHelper.AddWork(id, nameWork.text, startDateWork.text, endDateWork.text ,imagesWork , videoWork!);
     log(imagesWork.length.toString() ?? 'noooooooooooo');
     loading = false;
     notifyListeners();

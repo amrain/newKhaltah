@@ -5,12 +5,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/Features/Supervisor/ScheduleOfWork/SScheduleProvider.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
+import 'package:khaltah/Models/SAllContractsModel.dart';
 import 'package:provider/provider.dart';
 import '../../../ColorUi.dart';
 
 class SAddScheduleScreen extends StatelessWidget {
   // const SAddScheduleScreen({Key? key}) : super(key: key);
-  Contract? contract;
+  SContracts? contract;
   SAddScheduleScreen({required this.contract});
 
   @override

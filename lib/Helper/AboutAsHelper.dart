@@ -2,8 +2,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Models/AboutAsModel.dart';
 import 'package:provider/provider.dart';
@@ -28,16 +30,8 @@ class AboutAsHelper {
        return aboutUsModel.data!;
      }
      catch(e){
-       Fluttertoast.showToast(
-           msg: 'حدث خطأ غير متوقع',
-           toastLength: Toast.LENGTH_SHORT,
-           gravity: ToastGravity.CENTER,
-           timeInSecForIosWeb: 1,
-           backgroundColor: Colors.red,
-           textColor: Colors.white,
-           fontSize: 16.0
-       );
-
+       API.showErrorMsg();
+       Provider.of<AboutUsProvider>(AppRouter.navKey.currentContext!,listen: false).loading=false;
      }
 
   }

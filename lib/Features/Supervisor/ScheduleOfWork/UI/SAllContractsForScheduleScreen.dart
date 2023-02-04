@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
@@ -23,54 +24,58 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              title: Text('جدولة الأعمال',style: TextStyle(fontSize: 18.sp),),
+              title: HeadShake(child: Text('جدولة الأعمال',style: TextStyle(fontSize: 18.sp),)),
             ),
             body: SafeArea(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFieldWidget(hintText: 'بحث',
-                      suffix: IconButton(onPressed: (){},
-                          icon: Icon(Icons.search)),
+                  FadeInLeft(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFieldWidget(hintText: 'بحث',
+                        suffix: IconButton(onPressed: (){},
+                            icon: Icon(Icons.search)),
+                      ),
                     ),
                   ),
                   SizedBox(height: 15.h,),
                   providerB.loading?
                   Center(child: LoadingWidget())
                       :
-                  providerB.contracts?.length == 0 ?
+                  providerB.Scontracts?.length == 0 ?
                   Text('لا يوجد عقود')
                       :
                   Expanded(
-                    child: ListView.builder(
-                        itemCount: providerB.contracts!.length,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: (){
-                              // provider.getFollowUp(10);
-                              log(providerB.contracts![index].id!.toString());
-                              // provider.getFollowUp(providerB.contracts![index].id!);
-                              AppRouter.NavigatorToWidget(SAddScheduleScreen(contract: providerB.contracts![index],));
-                            },
-                            child: Container(
-                              height: 50.h,
-                              padding: EdgeInsets.all(8),
-                              margin: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)
+                    child: FadeInRight(
+                      child: ListView.builder(
+                          itemCount: providerB.Scontracts!.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: (){
+                                // provider.getFollowUp(10);
+                                log(providerB.Scontracts![index].id!.toString());
+                                // provider.getFollowUp(providerB.contracts![index].id!);
+                                AppRouter.NavigatorToWidget(SAddScheduleScreen(contract: providerB.Scontracts![index],));
+                              },
+                              child: Container(
+                                height: 50.h,
+                                padding: EdgeInsets.all(8),
+                                margin: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
+                                    SizedBox(width: 8.w,),
+                                    Text(providerB.Scontracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
+                                  ],
+                                ),
                               ),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
-                                  SizedBox(width: 8.w,),
-                                  Text(providerB.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   )
 
                 ],
