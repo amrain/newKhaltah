@@ -5,12 +5,14 @@ import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Screens/AboutUs/ConditionsScreen.dart';
 import 'package:khaltah/Features/Screens/AboutUs/WhoWeScreen.dart';
 import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
+import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/EditPasswordSecreen.dart';
+import 'package:khaltah/Features/Screens/Profile/ProfileProvider.dart';
 import 'package:khaltah/Helper/AboutAsHelper.dart';
 import 'package:provider/provider.dart';
 
 import 'ConnectUS/ContactUsScreen.dart';
-import 'ProfileScreen.dart';
+import 'Profile/ProfileScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -29,10 +31,12 @@ class SettingsScreen extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: (){
+                  Provider.of<ProfileProvider>(context,listen: false).getDataUser();
+                  Provider.of<ProfileProvider>(context,listen: false).enable = false;
                   AppRouter.NavigatorToWidget(ProfileScreen());
                 },
                 child: EditWidget(
-                  title: 'تعديل الملف الشخصي',
+                  title: 'الملف الشخصي',
                   pathImage: 'assets/images/Edit Square.svg',
                 ),
               ),

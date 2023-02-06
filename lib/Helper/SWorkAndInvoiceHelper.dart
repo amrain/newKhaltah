@@ -48,6 +48,13 @@ class SWorkAndInvoiceHelper {
     // //   );
     // // }
 
+    List listFile = [];
+    for(int i = 0 ; i < imagesWork.length ; i++){
+      var multipartFile = await MultipartFile.fromFile(File(imagesWork[i].paths.last.toString()).path,
+        filename: imagesWork[i].paths.single!.split("/").last.toString());
+      listFile.add(multipartFile);
+    }
+
 
 
     Response response = await dio.post("$basedUrl/work/store",
@@ -61,10 +68,14 @@ class SWorkAndInvoiceHelper {
             'name':name,
             'start_date':startDate,
             'end_date':endDate,
-            'image[]' : imagesWork.map((e) async {
-              return await MultipartFile.fromFile(File(e.paths.last.toString()).path,
-                filename: e.paths.single!.split("/").last.toString(),);
-            }).toList,
+            'image[]' : [
+                ...listFile
+            ],
+
+            // imagesWork.map((e) async {
+            //   return await MultipartFile.fromFile(File(e.paths.last.toString()).path,
+            //     filename: e.paths.single!.split("/").last.toString(),);
+            // }).toList,
 
             // 'image[]' :
             //  Provider.of<SWorkAndBillProvider>(AppRouter.navKey.currentContext!,listen: false).imagesWork.map((e)async{

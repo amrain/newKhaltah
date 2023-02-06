@@ -77,7 +77,25 @@ class SAddInvoiceScreen extends StatelessWidget {
                               dashPattern:[8],
                               child:  Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
                         )
-                            :Image.file(File(provider.imageInvoice!.paths.last.toString()))
+                            :SizedBox(
+                          height: 180.h,width: 130.w,
+                              child: DottedBorder(
+                              color: Colors.grey.shade300,
+                              strokeWidth: 2,
+                              dashPattern:[8],
+                              child:  Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Center(child: Image.file(File(provider.imageInvoice!.paths.last.toString()),fit: BoxFit.cover,height: 180.h,width: 130.w,)),
+                                  IconButton(onPressed: (){
+                                    provider.imageInvoice = null;
+                                    provider.notifyListeners();
+                                  },
+                                      icon: Icon(Icons.delete_outline_outlined,color: Colors.red,size: 30.sp,))
+                                ],
+                              )),
+                            )
+
                         ,
                       ),
                       SizedBox(height: 30.h,),

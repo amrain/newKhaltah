@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Helper/SWorkAndInvoiceHelper.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 class SWorkAndBillProvider extends ChangeNotifier {
   GlobalKey<FormState>? BillKey = GlobalKey();
@@ -21,6 +23,7 @@ class SWorkAndBillProvider extends ChangeNotifier {
   bool loading = false;
   FilePickerResult? oneImage ;
   List<FilePickerResult> imagesWork = [];
+  Uint8List? uint8listA;
 
   filePickerImageInvoice()async{
     imageInvoice = await FilePicker.platform.pickFiles(
@@ -48,6 +51,12 @@ class SWorkAndBillProvider extends ChangeNotifier {
     videoWork = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['mp4'],
+    );
+      uint8listA =await VideoThumbnail.thumbnailData(
+      video: videoWork?.paths.last.toString()??'',
+      imageFormat: ImageFormat.PNG,
+      maxWidth: 128, // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
+      quality: 25,
     );
     notifyListeners();
   }

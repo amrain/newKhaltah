@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
+import 'package:khaltah/Features/Screens/Profile/ProfileProvider.dart';
 import 'package:khaltah/Models/AuthModel.dart';
+import 'package:khaltah/Models/UserModel.dart';
 import 'package:provider/provider.dart';
 
 import '../AppRouter.dart';
@@ -15,7 +19,6 @@ class AuthHelper {
   static AuthHelper authHelper= AuthHelper._();
   Dio dio = Dio();
   String basedUrl = API.basedUrl;
-
 
   Future<AuthModel>login(String email,String password)async{
     Response response = await dio.post("$basedUrl/login",
@@ -33,8 +36,6 @@ class AuthHelper {
     log(user.accessToken.toString());
     return user;
   }
-
-
 
   Future<AuthModel> register(String name,String email,String phone,String City,String password,String password_confirmation,)async{
     Response response = await dio.post("$basedUrl/register",
@@ -57,7 +58,6 @@ class AuthHelper {
       return user;
   }
 
-
   forgetPassword(String email)async{
     Response response = await dio.post("$basedUrl/forgot-password",
       data: jsonEncode(
@@ -65,6 +65,7 @@ class AuthHelper {
           'email':email,
         },
       ),);
+    log(response.toString());
     int errors = response.data["errors"] ;
     if(errors == 1){
       AwesomeDialog(
@@ -78,7 +79,6 @@ class AuthHelper {
 
         },
       ).show();
-
     }else {
       AwesomeDialog(
         context: AppRouter.navKey.currentContext!,
@@ -90,16 +90,12 @@ class AuthHelper {
         btnOkOnPress: () {
           AppRouter.popFromWidget();
           Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).forgetPasswordController.clear();
-
         },
       ).show();
-
-
     }
   }
 
   resetPassword(String oldPass,String newPass,String congirmPass) async{
-
     Response response = await dio.post("$basedUrl/reset-password",
       options: Options(
         headers: {
@@ -114,7 +110,7 @@ class AuthHelper {
       },
     ),
     );
-
+    log(response.toString());
     if(response.data["status"]){
       AwesomeDialog(
         context: AppRouter.navKey.currentContext!,
@@ -142,9 +138,45 @@ class AuthHelper {
       ).show();
     }
 
+  }
 
+  getDataUser()async{
+    Response response = await dio.get("$basedUrl/user",
+      options: Options(
+        headers: <String, dynamic>{
+          "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+        },),
+    );
+    return UserModel.fromJson(response.data);
+  }
 
-
+  updateDataUser(String name,String email,String phone,String city,FilePickerResult? imageUser)async{
+    // try {
+      Response response = await dio.post(
+        "$basedUrl/user/update",
+        options: Options(headers: {
+          "Authorization":
+              "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!, listen: false).User.accessToken}"
+        }),
+        data: FormData.fromMap(
+          {
+            'image': imageUser == null ? null:await MultipartFile.fromFile(
+              File(imageUser.paths.last.toString()).path,
+              filename: imageUser.paths.single!.split("/").last.toString(),
+            ),
+            'name': name,
+            'email': email,
+            'phone': phone,
+            'City': city,
+          },
+        ),
+      );
+      log(response.toString());
+    // }
+    // catch(e){
+    //   API.showErrorMsg();
+    //   Provider.of<ProfileProvider>(AppRouter.navKey.currentContext!,listen: false).loading = false;
+    // }
   }
 
 

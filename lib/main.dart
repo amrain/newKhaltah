@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/LoginScreen.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
+import 'package:khaltah/Features/Screens/Profile/ProfileProvider.dart';
 import 'package:khaltah/Features/Supervisor/Bond/SBondProvider.dart';
 import 'package:khaltah/Features/Supervisor/ScheduleOfWork/SScheduleProvider.dart';
 import 'package:khaltah/Helper/SScheduleHelper.dart';
@@ -90,6 +91,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SWorkAndBillProvider>(
           create: (context) {
             return SWorkAndBillProvider();
+          },),
+        ChangeNotifierProvider<ProfileProvider>(
+          create: (context) {
+            return ProfileProvider();
           },),
 
       ],

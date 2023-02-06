@@ -50,11 +50,17 @@ dependencies:
   group_button: ^5.2.2
   loading_animation_widget: ^1.2.0+3
   flutter_animator:
-  fluttertoast: ^8.1.2
+  fluttertoast:
   video_player: ^2.2.18
+  video_thumbnail: ^0.5.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.11.0
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/LogoWithoutName.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Helper/AuthHelper.dart';
+import 'package:khaltah/Models/UserModel.dart';
 import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -11,6 +12,7 @@ import '../../Widgets/NavBarWidget.dart';
 
 class AuthProvider extends ChangeNotifier{
   late AuthModel User;
+
 
   TextEditingController emailLoginController = TextEditingController();
   TextEditingController passwordLoginController = TextEditingController();
@@ -123,8 +125,11 @@ class AuthProvider extends ChangeNotifier{
 
   }
 
+
+
   forgetPassword()async {
-    loading = true;
+    // loading = true;
+
     notifyListeners();
     await AuthHelper.authHelper.forgetPassword(forgetPasswordController.text);
     loading = false;

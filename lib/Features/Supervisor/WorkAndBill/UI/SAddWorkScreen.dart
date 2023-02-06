@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,19 +70,66 @@ class SAddWorkScreen extends StatelessWidget {
                       SizedBox(height: 15.h,),
                       Text('إضافة صور',style: TextStyle(fontSize: 18.sp),),
                       SizedBox(height: 15.h,),
-                      GestureDetector(
-                        onTap: (){
-                          provider.filePickerImagesWork();
-                        },
-                        child: SizedBox(
-                          height: 180.h,width: 130.w,
-                          child: DottedBorder(
-                            color: Colors.grey.shade300,
-                            strokeWidth: 2,
-                            dashPattern:[8],
-                            child:  Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
-                        ),
+                      SizedBox(
+                        height: 180.h,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                          itemCount: provider.imagesWork.length+1,
+                            itemBuilder: (context,index){
+                              if(index == provider.imagesWork.length){
+                                return GestureDetector(
+                                  onTap: (){
+                                    provider.filePickerImagesWork();
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 180.h,
+                                        width: 130.w,
+                                        margin: EdgeInsets.only(left: 8.w),
+                                        child: DottedBorder(
+                                            color: Colors.grey.shade300,
+                                            strokeWidth: 2,
+                                            dashPattern:[4],
+                                            child:  Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              else{
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 180.h,
+                                      width: 130.w,
+                                      margin: EdgeInsets.only(left: 8.w),
+                                      child: DottedBorder(
+                                          color: Colors.grey.shade300,
+                                          strokeWidth: 2,
+                                          dashPattern:[4],
+                                          child:  Stack(
+                                            alignment: Alignment.bottomCenter,
+                                            children: [
+                                              Center(
+                                                  child: Image.file(File(provider.imagesWork[index].paths.last!.toString()),fit: BoxFit.cover,height: 180.h,width: 130.w,)),
+                                              IconButton(onPressed: (){
+                                                provider.imagesWork.removeAt(index);
+                                                provider.notifyListeners();
+                                              },
+                                                  icon: Icon(Icons.delete_outline_outlined,color: Colors.red,size: 30.sp,))
+                                            ],
+                                          )),
+                                    ),
+
+                                  ],
+                                );
+                              }
+
+                            }),
                       ),
+
                       SizedBox(height: 15.h,),
                       Text('إضافة فيديو',style: TextStyle(fontSize: 18.sp),),
                       SizedBox(height: 15.h,),
@@ -93,9 +143,25 @@ class SAddWorkScreen extends StatelessWidget {
                               color: Colors.grey.shade300,
                               strokeWidth: 2,
                               dashPattern:[8],
-                              child:  Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
+                              child:
+                              provider.uint8listA != null?
+                              Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Image.memory(provider.uint8listA as Uint8List,fit: BoxFit.cover,height: 180.h,width: 130.w,),
+                                  IconButton(onPressed: (){
+                                    provider.videoWork = null;
+                                    provider.uint8listA = null;
+                                    provider.notifyListeners();
+                                  },
+                                      icon: Icon(Icons.delete_outline_outlined,color: Colors.red,size: 30.sp,))
+                                ],
+                              ):
+                              Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
                         ),
                       ),
+
+
                       SizedBox(height: 30.h,),
                       InkWell(
                         onTap: (){
