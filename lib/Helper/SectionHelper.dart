@@ -92,7 +92,11 @@ class SectionHelper {
         }),
 
     );
+    log("*******");
     log(response.data.toString());
+    log("*******");
+    log(response.data["data"]["id"].toString());
+    return response;
   }
   Future<SpecialConditionsModel> getSpecialConditions(String id)async{
     Response response = await dio.get("$basedUrl/special_conditions/$id",
@@ -103,4 +107,19 @@ class SectionHelper {
     );
     return SpecialConditionsModel.fromJson(response.data);
   }
+
+  storeSpecialConditions()async{
+    Response response = await dio.post("$basedUrl/special_conditions/store",
+      options: Options(
+        headers: <String, dynamic>{
+          "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+        },),
+      data: {
+        "data": Provider.of<SectionProvider>(AppRouter.navKey.currentContext!,listen: false).answers
+      }
+    );
+    log(response.toString());
+  }
+
+
 }

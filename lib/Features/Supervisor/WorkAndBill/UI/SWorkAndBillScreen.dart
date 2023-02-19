@@ -4,13 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Supervisor/WorkAndBill/UI/SAddInvoiceScreen.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
-import 'package:khaltah/Models/SAllContractsModel.dart';
 
 import 'SAddWorkScreen.dart';
 
 class SWorkAndBillScreen extends StatelessWidget {
   // const SWorkAndBillScreen({Key? key}) : super(key: key);
-  SContracts contract;
+  Contract contract;
   SWorkAndBillScreen ({required this.contract});
   @override
   Widget build(BuildContext context) {

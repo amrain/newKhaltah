@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Helper/ProjectsHelper.dart';
 import 'package:khaltah/Helper/SHomeHelper.dart';
 import 'package:khaltah/Models/AllProjectsModal.dart';
@@ -14,13 +15,21 @@ class SHomeProvider extends ChangeNotifier{
   bool loading = false;
   Dashboard? dashboard;
   getDashboard()async{
-    loading = true;
-    notifyListeners();
-    DashboardModel dashboardModel = await SHomeHelper.sHomeHelper.getDashboard();
-    dashboard = dashboardModel.data!;
-    loading = false;
-    notifyListeners();
-    log('getDashboard');
+    try{
+      loading = true;
+      notifyListeners();
+      DashboardModel dashboardModel =
+          await SHomeHelper.sHomeHelper.getDashboard();
+      dashboard = dashboardModel.data!;
+      loading = false;
+      notifyListeners();
+      log('getDashboard');
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
 

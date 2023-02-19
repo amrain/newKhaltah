@@ -34,8 +34,14 @@ class AllContractsForFollowUpScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFieldWidget(hintText: 'بحث',
-                      suffix: IconButton(onPressed: (){},
+                      suffix: IconButton(onPressed: (){
+                        if(providerB.searchController.text.isEmpty){
+                          providerB.getAllContracts();
+                        }else
+                          providerB.searchContracts();
+                      },
                           icon: Icon(Icons.search)),
+                      controller: providerB.searchController,
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/ColorUi.dart';
 
@@ -58,6 +59,35 @@ class TextFieldWidget extends StatelessWidget {
           labelStyle: TextStyle(fontSize: 20.sp)
 
         ),
+        onTap: (){
+          if(textInputType == TextInputType.datetime){
+            FocusScope.of(context).requestFocus(new FocusNode());
+            DatePicker.showDatePicker(context,
+                showTitleActions: true,
+                minTime: DateTime(1970, 1, 1),
+                maxTime: DateTime(2090, 12, 30),
+                theme: DatePickerTheme(
+                    headerColor: Colors.white,
+                    backgroundColor: ColorUi.mainColor,
+                    itemStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.sp),
+                    doneStyle: TextStyle(color: ColorUi.mainColor,fontWeight: FontWeight.bold, fontSize: 16.sp),
+                  cancelStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 16.sp),
+                ),
+                onChanged: (date) {
+                  print('change $date in time zone ' + date.timeZoneOffset.inHours.toString());
+                },
+                onConfirm: (date) {
+                  controller!.clear();
+                  controller!.text = date.toString().split(" ").first;
+                  print('confirm ${date}');
+                },
+                currentTime: DateTime.now(),
+                locale: LocaleType.ar,
+
+            );
+          }
+
+        },
 
       ),
     );

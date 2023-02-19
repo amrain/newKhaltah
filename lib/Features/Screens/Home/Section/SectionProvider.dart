@@ -1,24 +1,30 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
+import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Helper/SectionHelper.dart';
 import 'package:khaltah/Models/AllSectionsModel.dart';
 import 'package:khaltah/Models/SpecialConditionsModel.dart';
+import 'package:provider/provider.dart';
 
 class SectionProvider extends ChangeNotifier {
   List<Section> sections = [];
   List<Question> questions = [];
-  bool openAccessory = false;
+  bool openDocument = true;
+  bool openSpecialConditions = false;
   bool openDetails = false;
   bool loading = false;
 
 
 
   OpenedAccessory(){
-    openAccessory = true;
+    openSpecialConditions = true;
     notifyListeners();
   }
   OpenedDetails(){
@@ -27,10 +33,22 @@ class SectionProvider extends ChangeNotifier {
   }
 
   getSections(String id)async {
-    AllSectionsModel allSectionsModel = await SectionHelper.sectionHelper.getSection(id);
-    sections = allSectionsModel.data!;
-    notifyListeners();
+    try{
+      loading = true;
+      notifyListeners();
+      AllSectionsModel allSectionsModel =
+          await SectionHelper.sectionHelper.getSection(id);
+      sections = allSectionsModel.data!;
+      loading = false;
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
+
   String construction_type = '1';
   TextEditingController id_card_numberController = TextEditingController();
   TextEditingController id_card_dateController = TextEditingController();
@@ -55,6 +73,8 @@ class SectionProvider extends ChangeNotifier {
   FilePickerResult? PDF3;
   FilePickerResult? PDF4;
 
+  String? idNewContracts;
+  String? pathPDFContracts;
 
   filePicker(String fileName)async{
     switch(fileName)
@@ -123,10 +143,11 @@ class SectionProvider extends ChangeNotifier {
     notifyListeners();
   }
   contractsStore(String project_id, String section_id) async {
-    loading = true;
-    notifyListeners();
+    try{
+      loading = true;
+      notifyListeners();
 
-    await SectionHelper.sectionHelper.contractsStore(
+      Response response = await SectionHelper.sectionHelper.contractsStore(
         project_id,
         section_id,
         construction_type,
@@ -136,7 +157,7 @@ class SectionProvider extends ChangeNotifier {
         Instrument_noController.text,
         Instrument_dateController.text,
         building_permit_numberController.text,
-        Instrument_dateController.text,
+        license_dateController.text,
         engineering_office_nameController.text,
         engineer_nameController.text,
         engineer_phone_emailController.text,
@@ -152,17 +173,83 @@ class SectionProvider extends ChangeNotifier {
         PDF2!,
         PDF3!,
         PDF4!,
-    );
-    loading = false;
-    notifyListeners();
-    OpenedAccessory();
+      );
+      loading = false;
+      idNewContracts = response.data["data"]["id"].toString();
+      pathPDFContracts = response.data["data"]["contract_file"].toString();
+      notifyListeners();
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.rightSlide,
+        title: 'تم بنجاح',
+        desc: 'تم حفظ وثيقة العقد الاساسية',
+        btnOkText: 'موافق',
+        btnOkOnPress: () {},
+      ).show();
+      openDocument = false;
+      openSpecialConditions = true;
+      openDetails = false;
+      Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts();
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
   getSpecialConditions(String id)async {
-    SpecialConditionsModel allSpecialConditionsModel = await SectionHelper.sectionHelper.getSpecialConditions(id);
-    questions = allSpecialConditionsModel.data!;
-    notifyListeners();
+    try{
+      SpecialConditionsModel allSpecialConditionsModel =
+          await SectionHelper.sectionHelper.getSpecialConditions(id);
+      questions = allSpecialConditionsModel.data!;
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
+
+
+  List<dynamic> answers = [];
+
+  Map<String,dynamic> mapAnswers = {};
+
+
+
+  storeSpecialConditions()async{
+    try{
+      answers = mapAnswers.values.toList();
+      loading = true;
+      notifyListeners();
+      await SectionHelper.sectionHelper.storeSpecialConditions();
+      loading = false;
+      notifyListeners();
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.rightSlide,
+        title: 'تم بنجاح',
+        desc: 'تم حفظ ملحق الشروط الخاصة',
+        btnOkText: 'موافق',
+        btnOkOnPress: () {},
+      ).show();
+      openDocument = false;
+      openSpecialConditions = false;
+      openDetails = true;
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
+  }
+
 
 
 

@@ -44,11 +44,11 @@ class BillsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextFieldWidget(hintText: 'رقم الطلب او الهوية',
-                    suffix: IconButton(onPressed: (){},
-                        icon: Icon(Icons.search)),
-                  ),
-                  SizedBox(height: 20.h,),
+                  // TextFieldWidget(hintText: 'رقم الطلب او الهوية',
+                  //   suffix: IconButton(onPressed: (){},
+                  //       icon: Icon(Icons.search)),
+                  // ),
+                  // SizedBox(height: 20.h,),
                   Row(
                     children: [
                       SvgPicture.asset('assets/images/Group979.svg'),
@@ -68,46 +68,46 @@ class BillsScreen extends StatelessWidget {
                           crossAxisSpacing: 10.w,mainAxisSpacing: 10.h
 
                         ),
-                        itemCount: provider.bills.length+1,
+                        itemCount: provider.bills.length,
                         itemBuilder: (BuildContext ctx, index) {
                           return
-                            index == 0?
-                            Container(
-                              margin: const EdgeInsets.all(8),
-                              child: DottedBorder(
-                                color: Colors.grey,
-                                  padding: const EdgeInsets.all(6),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset('assets/images/upload.svg',height: 80.h,),
-                                        Text('اضافة فاتورة ',style: TextStyle(height: 1.5),)
-                                      ],
-                                    ),
-                                  )
-                              ),
-                            )
-                                :
+                            // index == 0?
+                            // Container(
+                            //   margin: const EdgeInsets.all(8),
+                            //   child: DottedBorder(
+                            //     color: Colors.grey,
+                            //       padding: const EdgeInsets.all(6),
+                            //       child: Center(
+                            //         child: Column(
+                            //           mainAxisAlignment: MainAxisAlignment.center,
+                            //           children: [
+                            //             SvgPicture.asset('assets/images/upload.svg',height: 80.h,),
+                            //             Text('اضافة فاتورة ',style: TextStyle(height: 1.5),)
+                            //           ],
+                            //         ),
+                            //       )
+                            //   ),
+                            // )
+                            //     :
                             Padding(
                             padding: EdgeInsets.all(8),
                             child: Center(
                               child: GestureDetector(
                                 onTap: (){
-                                  AppRouter.NavigatorToWidget(ViewPhotoScreen("${API.imageUrl}${provider.bills[index-1].image}"));
+                                  AppRouter.NavigatorToWidget(ViewPhotoScreen("${API.imageUrl}${provider.bills[index].image}"));
                                 },
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
 
-                                    Image.network("${API.imageUrl}${provider.bills[index-1].image}",width: 150.w,height: 190.h,fit: BoxFit.fill,
+                                    Image.network("${API.imageUrl}${provider.bills[index].image}",width: 150.w,height: 190.h,fit: BoxFit.fill,
                                     ),
-                                    Text(provider.bills[index-1].name!,style: TextStyle(fontSize: 10.sp,height: 2.h),),
+                                    Text(provider.bills[index].name!,style: TextStyle(fontSize: 10.sp,height: 2.h),),
                                     Row(
                                       children: [
                                         Text('تاريخ الفاتورة',style: TextStyle(fontSize: 10.sp),),
                                         SizedBox(width: 5.w,),
-                                        Text(provider.bills[index-1].date!,style: TextStyle(color: Colors.grey,fontSize: 10.sp),),
+                                        Text(provider.bills[index].date!,style: TextStyle(color: Colors.grey,fontSize: 10.sp),),
                                       ],
                                     )
                                   ],

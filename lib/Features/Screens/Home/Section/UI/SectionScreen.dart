@@ -9,11 +9,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/Features/Screens/Home/Section/SectionProvider.dart';
 import 'package:khaltah/Features/Screens/Home/Section/UI/Details.dart';
 import 'package:khaltah/Features/Screens/Home/Section/UI/Document.dart';
+import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:khaltah/Models/AllSectionsModel.dart';
 import 'package:khaltah/Features/ColorUi.dart';
-import 'package:khaltah/Features/Screens/Home/HomeProvider.dart';
-import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import 'SpecialConditions.dart';
 
@@ -43,6 +43,17 @@ class _SectionScreenState extends State<SectionScreen> {
   Material? _material = Material.withMaterial;
   late Section thisSection ;
 
+  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _pdfViewerKey.currentState?.openBookmarkView();
+    // log("${API.imageUrl}${widget.namePDF}");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +71,11 @@ class _SectionScreenState extends State<SectionScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     height: 125.h,
-                    child: GridView.builder(
+                    child:
+                        provider.loading == true ?
+                        Center(child: LoadingWidget())
+                        : provider.sections.length !=0?
+                        GridView.builder(
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4,
                             crossAxisSpacing: 10,
@@ -92,7 +107,8 @@ class _SectionScreenState extends State<SectionScreen> {
                                 ),),
                             ),
                           );
-                        }),
+                        }):
+                        Center(child: Text('لا يوجد اقسام'),),
                   ),
                 ),
                 open?
@@ -114,6 +130,7 @@ class _SectionScreenState extends State<SectionScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
+                          provider.openDetails || provider.openSpecialConditions ?
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -128,12 +145,12 @@ class _SectionScreenState extends State<SectionScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     SvgPicture.asset('assets/images/Group979.svg',height: 30.h,),
-                                    Text(" "+'001244')
+                                    Text("  "+provider.idNewContracts.toString())
                                   ],
                                 ),
                               ),
                             ],
-                          ),
+                          ) : SizedBox(height: 30.h,),
                           Row(
                             children: [
                               Row(children: [
@@ -174,8 +191,46 @@ class _SectionScreenState extends State<SectionScreen> {
                             ],
 
                           ),
-                          Document(section: thisSection,),
-                          provider.openAccessory?
+
+                          provider.openDocument?
+                          Document(section: thisSection,):
+                          InkWell(
+                            onTap: (){
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.info,
+                                animType: AnimType.rightSlide,
+                                title: 'تنبيه',
+                                desc: 'هذا الحقل مغلق حالياً',
+                                btnOkText: 'موافق',
+                                btnOkOnPress: () {},
+                              ).show();
+
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Card(
+                                child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "وثيقة العقد الاساسية",
+                                            ),
+                                            Icon(Icons.keyboard_arrow_down,color: Colors.black54,)
+                                          ],
+                                        ),
+                                        SizedBox(height: 8.h,)
+                                      ],
+                                    )),
+                              ),
+                            ),
+                          ),
+
+                          provider.openSpecialConditions?
                           SpecialConditions():
                           InkWell(
                             onTap: (){
@@ -183,8 +238,8 @@ class _SectionScreenState extends State<SectionScreen> {
                                   context: context,
                                   dialogType: DialogType.info,
                                   animType: AnimType.rightSlide,
-                                  title: 'مطلوب',
-                                  desc: 'يرجى تعبئة وثيقة العقد الاساسية',
+                                  title: 'تنبيه',
+                                desc: 'هذا الحقل مغلق حالياً',
                               btnOkText: 'موافق',
                               btnOkOnPress: () {},
                               ).show();
@@ -212,6 +267,7 @@ class _SectionScreenState extends State<SectionScreen> {
                                   ),
                                 ),
                           ),
+
                           provider.openDetails?
                           Details():
                           InkWell(
@@ -220,8 +276,8 @@ class _SectionScreenState extends State<SectionScreen> {
                                 context: context,
                                 dialogType: DialogType.info,
                                 animType: AnimType.rightSlide,
-                                title: 'مطلوب',
-                                desc: 'يرجى تعبئة ملحق الشروط الخاصة',
+                                title: 'تنبيه',
+                                desc: 'هذا الحقل مغلق حالياً',
                                 btnOkText: 'موافق',
                                 btnOkOnPress: () {},
                               ).show();

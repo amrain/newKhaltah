@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                                                 CircleAvatar(
                                                   backgroundColor: Color(0xffEEF7FC),
                                                   radius: 40.r,
-                                                  child: Image.network("${API.imageUrl}${provider.ProjectsTasheed[index].icon}"),
+                                                  child: Image.network("${API.imageUrl}${provider.ProjectsTasheed[index].icon}",height: 70.h,),
                                                 ),
                                                 SizedBox(height: 5.h,),
                                                 Text(provider.ProjectsTasheed[index].name??"",style: TextStyle(color: ColorUi.mainColor,fontSize: 10.sp),),
@@ -133,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                                                 CircleAvatar(
                                                   backgroundColor: Color(0xffF9F9E4),
                                                   radius: 40.r,
-                                                  child: Image.network("${API.imageUrl}${provider.ProjectsTashteb[index].icon}"),
+                                                  child: Image.network("${API.imageUrl}${provider.ProjectsTashteb[index].icon}",height: 70.h,),
                                                 ),
                                                 SizedBox(height: 5.h,),
                                                 Text(provider.ProjectsTashteb[index].name??"",style: TextStyle(color: Color(0xff808000),fontSize: 10.sp),),

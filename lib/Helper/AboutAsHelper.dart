@@ -19,7 +19,7 @@ class AboutAsHelper {
   String basedUrl = API.basedUrl;
 
     aboutUs ()async{
-     try{
+     // try{
        Response  response = await dio.get("$basedUrl/about_us",
            options: Options(
                headers: {
@@ -28,11 +28,11 @@ class AboutAsHelper {
            ));
        AboutUsModel aboutUsModel = AboutUsModel.fromJson(response.data);
        return aboutUsModel.data!;
-     }
-     catch(e){
-       API.showErrorMsg();
-       Provider.of<AboutUsProvider>(AppRouter.navKey.currentContext!,listen: false).loading=false;
-     }
+     // }
+     // catch(e){
+     //   API.showErrorMsg();
+     //   Provider.of<AboutUsProvider>(AppRouter.navKey.currentContext!,listen: false).loading=false;
+     // }
 
   }
 

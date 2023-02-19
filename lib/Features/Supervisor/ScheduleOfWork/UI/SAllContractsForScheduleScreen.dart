@@ -33,8 +33,14 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFieldWidget(hintText: 'بحث',
-                        suffix: IconButton(onPressed: (){},
+                        suffix: IconButton(onPressed: (){
+                          if(providerB.searchController.text.isEmpty){
+                            providerB.getAllContractsSupervisor();
+                          }else
+                            providerB.searchContracts();
+                        },
                             icon: Icon(Icons.search)),
+                        controller: providerB.searchController,
                       ),
                     ),
                   ),
@@ -42,20 +48,20 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
                   providerB.loading?
                   Center(child: LoadingWidget())
                       :
-                  providerB.Scontracts?.length == 0 ?
+                  providerB.contracts?.length == 0 ?
                   Text('لا يوجد عقود')
                       :
                   Expanded(
                     child: FadeInRight(
                       child: ListView.builder(
-                          itemCount: providerB.Scontracts!.length,
+                          itemCount: providerB.contracts!.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: (){
                                 // provider.getFollowUp(10);
-                                log(providerB.Scontracts![index].id!.toString());
+                                log(providerB.contracts![index].id!.toString());
                                 // provider.getFollowUp(providerB.contracts![index].id!);
-                                AppRouter.NavigatorToWidget(SAddScheduleScreen(contract: providerB.Scontracts![index],));
+                                AppRouter.NavigatorToWidget(SAddScheduleScreen(contract: providerB.contracts![index],));
                               },
                               child: Container(
                                 height: 50.h,
@@ -69,7 +75,7 @@ class SAllContractsForScheduleScreen extends StatelessWidget {
                                   children: [
                                     SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
                                     SizedBox(width: 8.w,),
-                                    Text(providerB.Scontracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
+                                    Text(providerB.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
                                   ],
                                 ),
                               ),

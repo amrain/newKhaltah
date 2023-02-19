@@ -1,8 +1,10 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Helper/AuthHelper.dart';
 import 'package:khaltah/Models/UserModel.dart';
@@ -27,17 +29,24 @@ class ProfileProvider extends ChangeNotifier{
   }
 
   getDataUser()async{
-    loading = true;
-    notifyListeners();
-    UserModel userModel = await AuthHelper.authHelper.getDataUser();
-    appUser = userModel.data!;
-    print(appUser.name);
-    loading = false;
-    nameController.text = appUser.name??'';
-    emailController.text = appUser.email??'';
-    phoneController.text = appUser.phone.toString()??'';
-    cityController.text = appUser.city??'';
-    notifyListeners();
+    try{
+      loading = true;
+      notifyListeners();
+      UserModel userModel = await AuthHelper.authHelper.getDataUser();
+      appUser = userModel.data!;
+      print(appUser.name);
+      loading = false;
+      nameController.text = appUser.name ?? '';
+      emailController.text = appUser.email ?? '';
+      phoneController.text = appUser.phone.toString() ?? '';
+      cityController.text = appUser.city ?? '';
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
   updateDataUser()async{
@@ -55,15 +64,16 @@ class ProfileProvider extends ChangeNotifier{
       loading = false;
       enable = false;
       notifyListeners();
-      Fluttertoast.showToast(
-          msg: 'تم تحديث الملف الشخصي',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 12.sp
-      );
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'تم بنجاح',
+        desc: 'تم تحديث الملف الشخصي',
+        btnOkText: 'موافق',
+        btnOkOnPress: () {
+        },
+      ).show();
     }
     catch(e){
       API.showErrorMsg();

@@ -31,8 +31,14 @@ class SAllContractsScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFieldWidget(hintText: 'بحث',
-                      suffix: IconButton(onPressed: (){},
+                      suffix: IconButton(onPressed: (){
+                        if(provider.searchController.text.isEmpty){
+                          provider.getAllContractsSupervisor();
+                        }else
+                          provider.searchContracts();
+                      },
                           icon: Icon(Icons.search)),
+                      controller: provider.searchController,
                     ),
                   ),
                 ),
@@ -40,17 +46,17 @@ class SAllContractsScreen extends StatelessWidget {
                 provider.loading?
                 Center(child: LoadingWidget())
                     :
-                provider.Scontracts?.length == 0 ?
+                provider.contracts?.length == 0 ?
                   Text('لا يوجد عقود')
                     :
                 Expanded(
                   child: FadeInRight(
                     child: ListView.builder(
-                      itemCount: provider.Scontracts!.length,
+                      itemCount: provider.contracts!.length,
                         itemBuilder: (context, index) {
                       return InkWell(
                         onTap: (){
-                          provider.getContractStatus(provider.Scontracts![index].id!);
+                          provider.getContractStatus(provider.contracts![index].id!);
                           AppRouter.NavigatorToWidget(SContractScreen());
                         },
                         child: Container(
@@ -65,7 +71,7 @@ class SAllContractsScreen extends StatelessWidget {
                             children: [
                               SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
                               SizedBox(width: 8.w,),
-                              Text(provider.Scontracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
+                              Text(provider.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
                             ],
                           ),
                         ),

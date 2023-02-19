@@ -32,9 +32,17 @@ class AllContractsScreen extends StatelessWidget {
                 FadeInLeft(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: TextFieldWidget(hintText: 'بحث',
-                      suffix: IconButton(onPressed: (){},
+                    child: TextFieldWidget(
+                      hintText: 'بحث',
+                      suffix: IconButton(onPressed: (){
+                        if(provider.searchController.text.isEmpty){
+                          provider.getAllContracts();
+                        }else
+                        provider.searchContracts();
+                      },
                           icon: Icon(Icons.search)),
+                      controller: provider.searchController,
+
                     ),
                   ),
                 ),

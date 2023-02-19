@@ -1,14 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:khaltah/AppRouter.dart';
-import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
-import 'package:khaltah/Models/SAllContractsModel.dart';
 import 'package:provider/provider.dart';
 
 import '../Features/Screens/Authentication/AuthProvider.dart';
@@ -31,24 +24,29 @@ class ContractsHelper {
     );
     return AllContractsModel.fromJson(response.data);
   }
+
   getAllContractsSupervisor()async{
-    try
-    {
-      Response response = await dio.get(
-        "$basedUrl/contract",
+      Response response = await dio.get("$basedUrl/contract",
         options: Options(
           headers: <String, dynamic>{
-            "Authorization":
-                "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!, listen: false).User.accessToken}"
-          },
-        ),
+            "Authorization": "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!, listen: false).User.accessToken}"
+          },),
       );
-      return SAllContractsModel.fromJson(response.data);
-    }
-    catch(e){
-      API.showErrorMsg();
-      Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).loading=false;
-    }
+      return AllContractsModel.fromJson(response.data);
+  }
+  searchContracts(String keyword)async{
+    Response response = await dio.post("$basedUrl/contracts/search",
+      options: Options(
+        headers: <String, dynamic>{
+          "Authorization" : "Bearer ${Provider.of<AuthProvider>(AppRouter.navKey.currentContext!,listen: false).User.accessToken}"
+        },),
+      data: jsonEncode(
+        <String, dynamic>{
+          'keyword':keyword,
+        },
+      ),
+    );
+    return AllContractsModel.fromJson(response.data);
   }
 
   Future<ContractStatusModel> ContractStatus(int idContract)async{

@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
+import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Helper/AuthHelper.dart';
 import 'package:khaltah/Models/UserModel.dart';
 import 'package:provider/provider.dart';
@@ -64,85 +65,115 @@ class AuthProvider extends ChangeNotifier{
   }
   
   login()async{
-    loading = true;
-    notifyListeners();
-    User = await AuthHelper.authHelper.login(emailLoginController.text, passwordLoginController.text);
-    loading = false;
-    notifyListeners();
+    try{
+      loading = true;
+      notifyListeners();
+      User = await AuthHelper.authHelper
+          .login(emailLoginController.text, passwordLoginController.text);
+      loading = false;
+      notifyListeners();
 
-    if(User.status == true){
-       AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
-       User.type == '3'?
-       Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts()
-       : Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContractsSupervisor()
-       ;
-       // User.type = '2';
-     }
-     else{
-       AwesomeDialog(
-         context: AppRouter.navKey.currentContext!,
-         dialogType: DialogType.error,
-         animType: AnimType.scale,
-         title: 'خطأ',
-         desc: 'يرجى كتابة البريد الإلكتروني وكلمة المرور بالشكل الصحيح',
-         btnOkText: 'موافق',
-         btnOkOnPress: () {},
-       ).show();
-     }
-
+      if (User.status == true) {
+        AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
+        User.type == '3'
+            ? Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,
+                    listen: false)
+                .getAllContracts()
+            : Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,
+                    listen: false)
+                .getAllContractsSupervisor();
+        // User.type = '2';
+      } else {
+        AwesomeDialog(
+          context: AppRouter.navKey.currentContext!,
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          title: 'خطأ',
+          desc: 'يرجى كتابة البريد الإلكتروني وكلمة المرور بالشكل الصحيح',
+          btnOkText: 'موافق',
+          btnOkOnPress: () {},
+        ).show();
+      }
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
   register()async{
-    loading = true;
-    notifyListeners();
-    User = await AuthHelper.authHelper.register(
-        nameController.text,
-        emailController.text,
-        phoneController.text,
-        CityController.text,
-        passwordController.text,
-        password_confirmationController.text);
-    loading = false;
-    notifyListeners();
-    if(User.status == true){
-      AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
-      User.type == '3'?
-      Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContracts()
-          : Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,listen: false).getAllContractsSupervisor()
-      ;
+    try{
+      loading = true;
+      notifyListeners();
+      User = await AuthHelper.authHelper.register(
+          nameController.text,
+          emailController.text,
+          phoneController.text,
+          CityController.text,
+          passwordController.text,
+          password_confirmationController.text);
+      loading = false;
+      notifyListeners();
+      if (User.status == true) {
+        AppRouter.NavigatorToWidgetWithReplacement(NavBarWidget());
+        User.type == '3'
+            ? Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,
+                    listen: false)
+                .getAllContracts()
+            : Provider.of<ContractsProvider>(AppRouter.navKey.currentContext!,
+                    listen: false)
+                .getAllContractsSupervisor();
+      } else {
+        AwesomeDialog(
+          context: AppRouter.navKey.currentContext!,
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          title: 'خطأ',
+          desc: User.message,
+          btnOkText: 'موافق',
+          btnOkOnPress: () {},
+        ).show();
+      }
     }
-    else{
-      AwesomeDialog(
-        context: AppRouter.navKey.currentContext!,
-        dialogType: DialogType.error,
-        animType: AnimType.scale,
-        title: 'خطأ',
-        desc: User.message,
-        btnOkText: 'موافق',
-        btnOkOnPress: () {},
-      ).show();
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
     }
-
   }
 
 
 
   forgetPassword()async {
-    // loading = true;
-
-    notifyListeners();
-    await AuthHelper.authHelper.forgetPassword(forgetPasswordController.text);
-    loading = false;
-    notifyListeners();
-
+    try{
+      loading = true;
+      notifyListeners();
+      await AuthHelper.authHelper.forgetPassword(forgetPasswordController.text);
+      loading = false;
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
   resetPassword() async{
-    loading = true;
-    notifyListeners();
-    AuthHelper.authHelper.resetPassword(resetOldPassController.text, resetNewPassController.text, resetConfirmPassController.text);
-    loading = false;
-    notifyListeners();
+    try{
+      loading = true;
+      notifyListeners();
+      AuthHelper.authHelper.resetPassword(resetOldPassController.text,
+          resetNewPassController.text, resetConfirmPassController.text);
+      loading = false;
+      notifyListeners();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
 

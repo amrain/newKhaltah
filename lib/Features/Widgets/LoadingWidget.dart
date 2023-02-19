@@ -19,6 +19,7 @@ class LoadingWidget extends StatelessWidget {
           // color: ColorUi.mainColor.withOpacity(.5),
           borderRadius: BorderRadius.circular(10.r)
       ),
+      // child: LoadingAnimationWidget.hexagonDots(color: ColorUi.mainColor, size: 80),
       child: LoadingAnimationWidget.fourRotatingDots(color: ColorUi.mainColor, size: 80),
     );
   }

@@ -67,6 +67,18 @@ class _SpecialConditionsState extends State<SpecialConditions> {
                                               GroupButton(
                                                 isRadio: true,
                                                 onSelected: (indexA, isSelected,f){
+                                                  Map<String,dynamic> map = {
+                                                    "contract_id" : int.parse(provider.idNewContracts!),
+                                                    "question_id" : provider.questions[indexQ].id,
+                                                    "answers" : provider.questions[indexQ].answers![isSelected].title.toString()
+                                                  };
+                                                  provider.mapAnswers[provider.questions[indexQ].id.toString()] = map;
+                                                    // provider.answers.add(map);
+                                                    // provider.answers[indexQ] = map;
+
+
+
+
                                                   print('${provider.questions[indexQ].id} id Question');
                                                   print('${provider.questions[indexQ].answers![isSelected].id} id Answer');
                                                 } ,
@@ -115,6 +127,7 @@ class _SpecialConditionsState extends State<SpecialConditions> {
                             ),
                             InkWell(
                               onTap: (){
+                                provider.storeSpecialConditions();
                                 Provider.of<SectionProvider>(context,listen: false).OpenedDetails();
                                 log(Provider.of<SectionProvider>(context,listen: false).openDetails.toString());
                               },
@@ -125,7 +138,9 @@ class _SpecialConditionsState extends State<SpecialConditions> {
                                   color:  ColorUi.mainColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Text('حفظ ومتابعة',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
+                                child:
+                                provider.loading ? CircularProgressIndicator(color: Colors.white,) :
+                                Text('حفظ ومتابعة',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                               ),
                             ),
                           ],

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animator/flutter_animator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
 import 'package:provider/provider.dart';
 import '../../../../AppRouter.dart';
@@ -73,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   suffix: Icon(Icons.email_outlined,color: Colors.grey,),
                                   controller: provider.emailLoginController,
                                   validator: provider.emailValidation,
+                                  textInputType: TextInputType.emailAddress,
                                 ),
                                 SizedBox(height: 15.h,),
                                 TextFieldWidget(
@@ -116,19 +118,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Row(
                                       children:  [
-                                        const Text(
+                                         Text(
                                           'الموافقة على ',
-                                          style: TextStyle(fontSize: 17.0),
+                                          style: TextStyle(fontSize: 17.sp),
                                         ),
-                                        InkWell(
-                                          onTap: (){
-                                            AppRouter.NavigatorToWidget(ConditionsScreen());
-                                          },
-                                          child: Text(
+                                        Text(
                                             'الشروط والاحكام',
-                                            style: TextStyle(fontSize: 17.0,color: ColorUi.mainColor),
+                                            style: TextStyle(fontSize: 17.sp,color: ColorUi.mainColor),
                                           ),
-                                        ),
                                       ],
                                     ),
 

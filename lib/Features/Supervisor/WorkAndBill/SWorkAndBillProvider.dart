@@ -6,6 +6,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Helper/API.dart';
 import 'package:khaltah/Helper/SWorkAndInvoiceHelper.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -70,49 +71,70 @@ class SWorkAndBillProvider extends ChangeNotifier {
 
 
   AddInvice(String id)async{
-    loading = true;
-    notifyListeners();
-    await SWorkAndInvoiceHelper.sWorkAndInvoiceHelper.AddInvoice(id, nameBill.text, dateBill.text);
-    // log(response.data.toString());
-    loading = false;
-    notifyListeners();
-    AwesomeDialog(
-      context: AppRouter.navKey.currentContext!,
-      dialogType: DialogType.success,
-      animType: AnimType.scale,
-      title: 'تم الارسال',
-      desc: 'تم إضافة الفاتورة',
-      btnOkText: 'موافق',
-      btnOkOnPress: () {
-        nameBill.clear();
-        dateBill.clear();
-        imageInvoice = null;
-        notifyListeners();
-      },
-    ).show();
+    try{
+      loading = true;
+      notifyListeners();
+      await SWorkAndInvoiceHelper.sWorkAndInvoiceHelper
+          .AddInvoice(id, nameBill.text, dateBill.text);
+      // log(response.data.toString());
+      loading = false;
+      notifyListeners();
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'تم الارسال',
+        desc: 'تم إضافة الفاتورة',
+        btnOkText: 'موافق',
+        btnOkOnPress: () {
+          nameBill.clear();
+          dateBill.clear();
+          imageInvoice = null;
+          notifyListeners();
+        },
+      ).show();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
   AddWork(String id)async{
-    loading = true;
-    notifyListeners();
-    await SWorkAndInvoiceHelper.sWorkAndInvoiceHelper.AddWork(id, nameWork.text, startDateWork.text, endDateWork.text ,imagesWork , videoWork!);
-    log(imagesWork.length.toString() ?? 'noooooooooooo');
-    loading = false;
-    notifyListeners();
-    AwesomeDialog(
-      context: AppRouter.navKey.currentContext!,
-      dialogType: DialogType.success,
-      animType: AnimType.scale,
-      title: 'تم الارسال',
-      desc: 'تم إضافة الفاتورة',
-      btnOkText: 'موافق',
-      btnOkOnPress: () {
-        nameBill.clear();
-        dateBill.clear();
-        imageInvoice = null;
-        notifyListeners();
-      },
-    ).show();
+    try{
+      loading = true;
+      notifyListeners();
+      await SWorkAndInvoiceHelper.sWorkAndInvoiceHelper.AddWork(
+          id,
+          nameWork.text,
+          startDateWork.text,
+          endDateWork.text,
+          imagesWork,
+          videoWork!);
+      log(imagesWork.length.toString() ?? 'noooooooooooo');
+      loading = false;
+      notifyListeners();
+      AwesomeDialog(
+        context: AppRouter.navKey.currentContext!,
+        dialogType: DialogType.success,
+        animType: AnimType.scale,
+        title: 'تم الارسال',
+        desc: 'تم إضافة الفاتورة',
+        btnOkText: 'موافق',
+        btnOkOnPress: () {
+          nameBill.clear();
+          dateBill.clear();
+          imageInvoice = null;
+          notifyListeners();
+        },
+      ).show();
+    }
+    catch(e){
+      API.showErrorMsg();
+      loading = false;
+      notifyListeners();
+    }
   }
 
 

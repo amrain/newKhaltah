@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:khaltah/Features/ColorUi.dart';
+import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Screens/Home/Section/SectionProvider.dart';
 import 'package:khaltah/Features/Widgets/FileButton.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
@@ -43,7 +44,7 @@ class Document extends StatelessWidget {
                         header: const Padding(
                             padding: EdgeInsets.all(10),
                             child: Text(
-                              "وثيقة العقدالاساسية",
+                              "وثيقة العقدالاساسية",style: TextStyle(fontWeight: FontWeight.bold),
                             )),
                         expanded: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +55,8 @@ class Document extends StatelessWidget {
                                 Column(
                                   children:  [
                                     TextFieldWidget(hintText: 'رقم بطاقة الأحوال',
-                                      controller: provider.id_card_numberController,),
+                                      controller: provider.id_card_numberController,
+                                    textInputType: TextInputType.number,),
                                     SizedBox(height: 8.h,),
                                     TextFieldWidget(hintText: 'تاريخ بطاقة الأحوال',
                                       textInputType: TextInputType.datetime,
@@ -63,7 +65,6 @@ class Document extends StatelessWidget {
                                     TextFieldWidget(hintText: 'مصدر بطاقة الأحوال',
                                       controller: provider.status_card_issuerController,),
                                     SizedBox(height: 8.h,),
-                                    // TextFieldWidget(hintText: 'صورة بطاقة الأحوال',),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('status_card_image');
@@ -71,13 +72,12 @@ class Document extends StatelessWidget {
                                       child: FileButton(content: 'صورة بطاقة الأحوال', file: provider.status_card_image),
                                     ),
                                     SizedBox(height: 8.h,),
-                                    TextFieldWidget(hintText: 'رقم الصك',controller: provider.Instrument_noController,),
+                                    TextFieldWidget(hintText: 'رقم الصك',controller: provider.Instrument_noController,textInputType: TextInputType.number,),
                                     SizedBox(height: 8.h,),
                                     TextFieldWidget(hintText: 'تاريخ الصك',
                                       textInputType: TextInputType.datetime,
                                       controller: provider.Instrument_dateController,),
                                     SizedBox(height: 8.h,),
-                                    // TextFieldWidget(hintText: 'صورة الصك'),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('Instrument_image');
@@ -86,13 +86,12 @@ class Document extends StatelessWidget {
                                     ),
                                     SizedBox(height: 8.h,),
                                     TextFieldWidget(hintText: 'رقم ترخيص البناء',
-                                      controller: provider.building_permit_numberController,),
+                                      controller: provider.building_permit_numberController,textInputType: TextInputType.number,),
                                     SizedBox(height: 8.h,),
                                     TextFieldWidget(hintText: 'تاريخ الترخيص',
                                       textInputType: TextInputType.datetime,
                                       controller: provider.license_dateController,),
                                     SizedBox(height: 8.h,),
-                                    // TextFieldWidget(hintText: 'صورة الترخيص'),
                                     GestureDetector(
                                       onTap: (){
                                         provider.filePicker('license_image');
@@ -110,7 +109,7 @@ class Document extends StatelessWidget {
                                       controller: provider.engineer_phone_emailController,),
                                     SizedBox(height: 8.h,),
                                     TextFieldWidget(hintText: 'رقم القرار المساحي',
-                                      controller: provider.cadastral_numberController,),
+                                      controller: provider.cadastral_numberController,textInputType: TextInputType.number,),
                                     SizedBox(height: 8.h,),
                                     TextFieldWidget(hintText: 'اسم الحي',
                                       controller: provider.neighborhoodController,),
@@ -164,21 +163,15 @@ class Document extends StatelessWidget {
                                       child: FileButton(content: 'المخطط الميكانيكي', file: provider.PDF4),
                                     ),
                                     SizedBox(height: 10.h,),
-                                    provider.openAccessory != true?
+                                    // provider.openAccessory != true?
                                     InkWell(
                                       onTap: (){
-
-
-
                                         Provider.of<SectionProvider>(context,listen: false).contractsStore(
                                             section.projectId.toString(),
                                             section.id.toString());
-                                        // log(provider.PDF4?.paths.last.toString()??'');
-                                        // log(provider.construction_type);
+                                        log(Provider.of<SectionProvider>(context,listen: false).openSpecialConditions.toString());
 
-                                        // Provider.of<SectionProvider>(context,listen: false).OpenedAccessory();
-                                        log(Provider.of<SectionProvider>(context,listen: false).openAccessory.toString());
-                                        // log(provider.Instrument_image?.names.toString()??"no file");
+
                                       },
                                       child: Container(
                                         height: 48.h,
@@ -192,7 +185,8 @@ class Document extends StatelessWidget {
                                             provider.loading ? CircularProgressIndicator(color: Colors.white,) :
                                         Text('حفظ ومتابعة',style: TextStyle(fontSize: 18.sp,color: Colors.white),),
                                       ),
-                                    ) : SizedBox(),
+                                    )
+                                        // : SizedBox(),
                                   ],
                                 )
                               // Text(
