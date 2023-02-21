@@ -45,9 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 SafeArea(
                   child: Column(
                     children: [
-                      SizedBox(height: 30.h,),
-                      FadeInDown(child: SvgPicture.asset('assets/images/logo.svg',height: 100.h,)),
-                      SizedBox(height: 50.h,),
+                      SizedBox(height: 25.h,),
+                      FadeInDown(child: SvgPicture.asset('assets/images/logoConceptWithName.svg',height: 170.h,)),
+                      SizedBox(height: 35.h,),
                       FadeInUp(
                         child: Container(
                           margin: EdgeInsets.all(8),

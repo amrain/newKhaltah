@@ -73,7 +73,7 @@ class _SContractScreenState extends State<SContractScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                  SvgPicture.asset('assets/images/Group3194.svg'),
+                  SvgPicture.asset('assets/images/Group3194.svg',color: ColorUi.mainColor,),
                   SizedBox(width: 20.w,),
                   Text(provider.contractStatus?.code??'',style: TextStyle(color: ColorUi.mainColor,fontSize: 18.sp),),
                 ],),
@@ -84,7 +84,7 @@ class _SContractScreenState extends State<SContractScreen> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(11.r)),
-                    border: Border.all(color: ColorUi.mainColor)
+                    border: Border.all(color: ColorUi.Color2)
                 ),
                 child: Row(
                   children: [
@@ -101,7 +101,7 @@ class _SContractScreenState extends State<SContractScreen> {
                           // width: MediaQuery.of(context).size.width/2,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: select==1 ? ColorUi.mainColor : Colors.transparent,
+                              color: select==1 ? ColorUi.Color2 : Colors.transparent,
                         borderRadius: BorderRadius.all(Radius.circular(10.r)),
                           ),
                           child: Text('حالة الطلب',
@@ -125,7 +125,7 @@ class _SContractScreenState extends State<SContractScreen> {
                           // width: MediaQuery.of(context).size.width/2,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: select==2 ? ColorUi.mainColor : Colors.transparent,
+                            color: select==2 ? ColorUi.Color2 : Colors.transparent,
                             borderRadius: BorderRadius.all(Radius.circular(10.r)),
                           ),
                           child: Text('المخالصة النهائية',

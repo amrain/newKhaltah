@@ -56,7 +56,7 @@ class TextFieldWidget extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 15.sp,color: Colors.grey),
           labelText: labelText,
-          labelStyle: TextStyle(fontSize: 20.sp)
+          labelStyle: TextStyle(fontSize: 20.sp,color: ColorUi.mainColor),
 
         ),
         onTap: (){

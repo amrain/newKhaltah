@@ -7,8 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features//Widgets/TextFieldWidget.dart';
+import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
+import 'package:khaltah/Features/Widgets/imageContractWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'ContractScreen.dart';
@@ -74,7 +76,7 @@ class AllContractsScreen extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
+                              ImageContract(),
                               SizedBox(width: 8.w,),
                               Text(provider.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
                             ],

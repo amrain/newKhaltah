@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/Features/Supervisor/WorkAndBill/SWorkAndBillProvider.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
+import 'package:khaltah/Features/Widgets/imageContractWidget.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
 import 'package:provider/provider.dart';
 import '../../../ColorUi.dart';
@@ -40,7 +41,7 @@ class SAddWorkScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            SvgPicture.asset('assets/images/Group979.svg',height: 30.h,),
+                            ImageContract(height: 30,),
                             SizedBox(width: 8.w,),
                             Text(contract.code.toString(),style: TextStyle(fontSize: 18.sp),)
                           ],
@@ -90,7 +91,7 @@ class SAddWorkScreen extends StatelessWidget {
                                             color: Colors.grey.shade300,
                                             strokeWidth: 2,
                                             dashPattern:[4],
-                                            child:  Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
+                                          child: Center(child: Icon(Icons.drive_folder_upload_outlined,color: ColorUi.Color2,size: 50.sp,)),),
                                       ),
                                     ],
                                   ),
@@ -156,7 +157,7 @@ class SAddWorkScreen extends StatelessWidget {
                                       icon: Icon(Icons.delete_outline_outlined,color: Colors.red,size: 30.sp,))
                                 ],
                               ):
-                              Center(child: SvgPicture.asset('assets/images/upload.svg',height: 50.h,))),
+                              Center(child: Icon(Icons.upload_file_outlined,color: ColorUi.Color2,size: 50.sp,)),),
                         ),
                       ),
 

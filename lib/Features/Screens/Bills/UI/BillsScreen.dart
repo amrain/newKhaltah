@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
 import 'package:khaltah/Features/Widgets/ViewPhotoScreen.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
@@ -51,7 +52,7 @@ class BillsScreen extends StatelessWidget {
                   // SizedBox(height: 20.h,),
                   Row(
                     children: [
-                      SvgPicture.asset('assets/images/Group979.svg'),
+                      SvgPicture.asset('assets/images/Group979.svg',color: ColorUi.mainColor,),
                       SizedBox(width: 8.w,),
                       Text(provider.bills.first.contract!.code!,style: TextStyle(fontSize: 12.sp),)
                     ],

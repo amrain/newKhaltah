@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/Features/Supervisor/ScheduleOfWork/SScheduleProvider.dart';
 import 'package:khaltah/Features/Widgets/TextFieldWidget.dart';
+import 'package:khaltah/Features/Widgets/imageContractWidget.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
 import 'package:provider/provider.dart';
 import '../../../ColorUi.dart';
@@ -38,7 +39,7 @@ class SAddScheduleScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            SvgPicture.asset('assets/images/Group979.svg',height: 30.h,),
+                            ImageContract(height: 30,),
                             SizedBox(width: 8.w,),
                             Text(contract?.code.toString()??'',style: TextStyle(fontSize: 18.sp),)
                           ],

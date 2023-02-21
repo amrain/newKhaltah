@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:khaltah/AppRouter.dart';
+import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/Authentication/AuthProvider.dart';
 import 'package:khaltah/Features/Supervisor/Contracts/UI/SAllContractsScreen.dart';
 import 'package:khaltah/Features/Supervisor/Home/SHomeScreen.dart';
@@ -179,12 +180,13 @@ class NavBarOnButton extends StatelessWidget {
           width: 50.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Color(0xffEEF7FC),
+            color: ColorUi.mainColor.withOpacity(.1)
+            // color: Color(0xffEEF7FC),
           ),
-          child: SvgPicture.asset(pathImage,height: 25.h,),
+          child: SvgPicture.asset(pathImage,height: 25.h,color: ColorUi.mainColor,),
           alignment: Alignment.center,
         ),
-        Text(title,style: TextStyle(fontSize: 13.sp,height: 1.2),)
+        Text(title,style: TextStyle(fontSize: 13.sp,height: 1.2,color: ColorUi.mainColor,),)
       ],
     );
   }
@@ -202,7 +204,7 @@ class NavBarOffButton extends StatelessWidget {
       children: [
         SizedBox(
             height: 50.h,
-            child: SvgPicture.asset(pathImage,height: 25.h,)),
+            child: SvgPicture.asset(pathImage,height: 25.h)),
         Text(title,style: TextStyle(fontSize: 10.sp,height: 1),)
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:khaltah/Features/ColorUi.dart';
 import 'package:khaltah/Features/Screens/AboutUs/AboutUsprovider.dart';
 import 'package:khaltah/Features/Screens/Authentication/UI/LoginScreen.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
@@ -112,6 +113,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               fontFamily: 'arabic',
               scaffoldBackgroundColor: Colors.white,
+
               appBarTheme: const AppBarTheme(
 
                 titleTextStyle: TextStyle(
@@ -122,7 +124,9 @@ class MyApp extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.black,
+
               ),
+                textSelectionTheme: TextSelectionThemeData(cursorColor : ColorUi.Color2)
             ),
             home: SplashScreen(),
             routes: <String, WidgetBuilder> {

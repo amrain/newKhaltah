@@ -81,6 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 suffix: Icon(Icons.email_outlined,color: Colors.grey,),
                                 validator: provider.emailValidation,
                                 controller: provider.emailController,
+                                textInputType: TextInputType.emailAddress,
                               ),
                               SizedBox(height: 10.h,),
 
@@ -88,6 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 hintText: 'رقم الجوال',
                                 validator: provider.nullValidation,
                                 controller: provider.phoneController,
+                                textInputType: TextInputType.phone,
                               ),
                               SizedBox(height: 10.h,),
 
@@ -129,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       color: Colors.grey,)
                                 ),
                                 isPassword: repeatPassword,
-                                validator: provider.passwordValidation,
+                                validator: provider.passConfirmSignUp,
                                 controller: provider.password_confirmationController,
 
                               ),

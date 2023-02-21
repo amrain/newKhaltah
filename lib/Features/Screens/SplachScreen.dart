@@ -30,9 +30,9 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset('assets/images/LogoWithoutName.svg',height: 200.h,),
+            SvgPicture.asset('assets/images/logoConceptWithName.svg',height: 180.h,),
             SizedBox(height: 15.h,),
-            LoadingAnimationWidget.stretchedDots(color: Color(0xff808122), size: 70),
+            LoadingAnimationWidget.stretchedDots(color: Color(0xff670e3b), size: 70),
           ],
         ),
       ),

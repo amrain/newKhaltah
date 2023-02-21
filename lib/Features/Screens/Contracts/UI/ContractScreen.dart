@@ -104,7 +104,7 @@ class _ContractScreenState extends State<ContractScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                  SvgPicture.asset('assets/images/Group3194.svg'),
+                  SvgPicture.asset('assets/images/Group3194.svg',color: ColorUi.mainColor,),
                   SizedBox(width: 20.w,),
                   Text(provider.contractStatus?.code??'',style: TextStyle(color: ColorUi.mainColor,fontSize: 18.sp),),
                 ],),
@@ -115,7 +115,7 @@ class _ContractScreenState extends State<ContractScreen> {
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(11.r)),
-                    border: Border.all(color: ColorUi.mainColor)
+                    border: Border.all(color: ColorUi.Color2)
                 ),
                 child: Row(
                   children: [
@@ -132,7 +132,7 @@ class _ContractScreenState extends State<ContractScreen> {
                           // width: MediaQuery.of(context).size.width/2,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              color: select==1 ? ColorUi.mainColor : Colors.transparent,
+                              color: select==1 ? ColorUi.Color2 : Colors.transparent,
                         borderRadius: BorderRadius.all(Radius.circular(10.r)),
                           ),
                           child: Text('حالة الطلب',
@@ -156,7 +156,7 @@ class _ContractScreenState extends State<ContractScreen> {
                           // width: MediaQuery.of(context).size.width/2,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: select==2 ? ColorUi.mainColor : Colors.transparent,
+                            color: select==2 ? ColorUi.Color2 : Colors.transparent,
                             borderRadius: BorderRadius.all(Radius.circular(10.r)),
                           ),
                           child: Text('المخالصة النهائية',
@@ -481,7 +481,7 @@ class _ContractScreenState extends State<ContractScreen> {
                            // width: MediaQuery.of(context).size.width/2,
                            alignment: Alignment.center,
                            decoration: BoxDecoration(
-                             color: const Color(0xff808000),
+                             color: ColorUi.Color2,
                              borderRadius: BorderRadius.all(Radius.circular(25.r)),
                            ),
                            child: const Text('المخالصة النهائية',
@@ -532,16 +532,16 @@ class _ContractScreenState extends State<ContractScreen> {
                              style: TextStyle(color: Colors.white),),
                          ),
                          SizedBox(height: 15.h,),
-                         const ListTile(
-                           leading: Icon(Icons.circle,color: Color(0xff808000),),
+                         ListTile(
+                           leading: Icon(Icons.circle,color: ColorUi.Color2,),
                            title: Text('الموافقة الالكترونية على  المخالصة النهائية تعتبر  بمثابة التوقيع الشخصي وملزمة لحامل هذا السند قانونيا وقضائيا',
-                           style: TextStyle(color: Color(0xff808000)),),
+                           style: TextStyle(color: ColorUi.Color2),),
                          ),
                          SizedBox(height: 10.h,),
-                         const ListTile(
-                           leading: Icon(Icons.circle,color: Color(0xff808000),),
+                         ListTile(
+                           leading: Icon(Icons.circle,color: ColorUi.Color2,),
                            title: Text('لا يتم تسليم اي مبلغ مالي لاي عامل يقوم بتنفيذ الاعمال',
-                             style: TextStyle(color: Color(0xff808000)),),
+                             style: TextStyle(color: ColorUi.Color2),),
                          ),
                          SizedBox(height: 25.h,),
                          provider.contractStatus!.status! == 2?

@@ -42,7 +42,10 @@ class AuthProvider extends ChangeNotifier{
       return 'هذا الحقل مطلوب';
     }}
   passwordValidation(String v){
-    if(v.length < 6) {
+    if(v.isEmpty) {
+      return 'هذا الحقل مطلوب';
+    }
+    else if(v.length < 6) {
       return 'كلمة المرور يجب ان تكون اكثر من 6 أحرف';
     }}
   passConfirm(String v){
@@ -52,8 +55,14 @@ class AuthProvider extends ChangeNotifier{
     if(v != resetNewPassController.text) {
       return 'كلمة المرور غير متطابقة';
     }
-
-
+  }
+  passConfirmSignUp(String v){
+    if(v.length < 6) {
+      return 'كلمة المرور يجب ان تكون اكثر من 6 أحرف';
+    }
+    if(v != passwordController.text) {
+      return 'كلمة المرور غير متطابقة';
+    }
   }
   emailValidation(String v){
     if(v.isEmpty) {

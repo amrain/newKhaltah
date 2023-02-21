@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:khaltah/AppRouter.dart';
 import 'package:khaltah/Features/Supervisor/WorkAndBill/UI/SAddInvoiceScreen.dart';
+import 'package:khaltah/Features/Widgets/imageContractWidget.dart';
 import 'package:khaltah/Models/AllContractsModel.dart';
 
 import 'SAddWorkScreen.dart';
@@ -26,7 +27,7 @@ class SWorkAndBillScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SvgPicture.asset('assets/images/Group979.svg',height: 30.h,),
+                  ImageContract(height: 30,),
                   SizedBox(width: 8.w,),
                   Text(contract.code.toString(),style: TextStyle(fontSize: 18.sp),)
                 ],

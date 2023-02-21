@@ -8,6 +8,7 @@ import 'package:khaltah/Features//Widgets/TextFieldWidget.dart';
 import 'package:khaltah/Features/Screens/Bills/BillsProvider.dart';
 import 'package:khaltah/Features/Screens/Contracts/ContractsProvider.dart';
 import 'package:khaltah/Features/Widgets/LoadingWidget.dart';
+import 'package:khaltah/Features/Widgets/imageContractWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'BillsScreen.dart';
@@ -73,7 +74,7 @@ class AllContractsForBillsScreen extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              SvgPicture.asset('assets/images/Group979.svg',height: 50.h,),
+                              ImageContract(),
                               SizedBox(width: 8.w,),
                               Text(providerB.contracts?[index].code??'',style: TextStyle(fontSize: 18.sp),)
                             ],
